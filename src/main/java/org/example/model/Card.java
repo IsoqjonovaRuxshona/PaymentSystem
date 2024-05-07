@@ -8,10 +8,9 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import lombok.*;
-import org.example.enumerator.Role;
 
 import java.time.LocalDateTime;
-
+import java.util.UUID;
 @Setter
 @Getter
 @NoArgsConstructor
@@ -19,14 +18,13 @@ import java.time.LocalDateTime;
 @Builder
 @ToString
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class User extends BaseModel{
-    private String name;
-    private String username;
-    private String password;
-    private Role role;
+public class Card extends BaseModel{
+    private String cardNumber;
+    private Double balance;
+    private UUID ownerId;
+
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     protected LocalDateTime createdDate;
-
 }

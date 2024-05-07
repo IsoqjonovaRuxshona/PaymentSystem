@@ -1,7 +1,6 @@
 package org.example.repository;
 
-import org.example.model.Transfer;
-import org.example.model.User;
+import org.example.model.Transaction;
 
-public class TransferRepository extends BaseRpository<Transfer>{
+public class TransferRepository extends BaseRpository<Transaction>{
 }
