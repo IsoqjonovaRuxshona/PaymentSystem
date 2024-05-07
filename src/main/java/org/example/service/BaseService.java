@@ -15,23 +15,29 @@ public abstract class BaseService<T extends BaseModel, R extends BaseRepository<
     protected BaseService(R repository) {
         this.repository = repository;
     }
-    public abstract boolean check(T t);
+
+    public abstract boolean check(T t) throws DataNotFoundException;
 
     public int add(T t) {
-        if (check(t)) {
-            return -1;
+        try {
+            if (check(t)) {
+                return -1;
+            }
+        } catch (DataNotFoundException e) {
+            throw new RuntimeException(e);
         }
         repository.save(t);
         return 1;
     }
 
-    public void delete(UUID id){
+    public void delete(UUID id) {
         repository.delete(id);
     }
 
-    public void update(UUID id, T update){
-        repository.update(id,update);
+    public void update(UUID id, T update) {
+        repository.update(id, update);
     }
+
     public T findById(UUID id) throws DataNotFoundException {
         Optional<T> optional = repository.findById(id);
         return optional.orElseThrow(new Supplier<DataNotFoundException>() {

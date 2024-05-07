@@ -1,10 +1,27 @@
 package org.example.repository;
 
+import org.example.exception.DataNotFoundException;
 import org.example.model.User;
 
-public class UserRepository extends BaseRepository<User> {
+import java.util.ArrayList;
+import java.util.Objects;
+import java.util.Optional;
 
-    public UserRepository() {
-            super.path = "C:\\java\\PayMe\\src\\main\\resources\\users.json";
+public class UserRepository extends BaseRepository<User> {
+    {
+        path = "src/main/resources/users.json";
+        type = User.class;
+    }
+    private static UserRepository userRepository;
+    public static UserRepository getInstance() {
+        if (Objects.isNull(userRepository)) {
+            userRepository = new UserRepository();
+        }
+        return userRepository;
+    }
+
+    public Optional<User> findByUsername(String username)throws DataNotFoundException {
+        ArrayList<User> data = readFromFile();
+        return data.stream().filter(user -> Objects.equals(user.getUsername(),username)).findFirst();
     }
 }

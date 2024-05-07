@@ -7,9 +7,15 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.UUID;
 
+import static org.example.controller.Main.cardService;
+import static org.example.controller.Main.transferService;
+
 public class CardService extends BaseService<Card, CardRepository> {
     public CardService(CardRepository repository) {
         super(repository);
+    }
+    public static CardService getInstance(){
+        return cardService;
     }
 
     @Override
