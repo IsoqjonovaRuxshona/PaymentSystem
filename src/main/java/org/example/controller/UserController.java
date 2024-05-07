@@ -12,7 +12,7 @@ import java.util.Optional;
 import static org.example.controller.Main.*;
 
 public class UserController {
-    static void signUp() {
+    public static void signUp() {
 
         System.out.println("Enter name -> ");
         String name = scanStr.nextLine();
@@ -30,7 +30,7 @@ public class UserController {
         }
     }
 
-    static void signIn() {
+   public static void signIn() {
         System.out.println("Enter username -> ");
         String username = scanStr.nextLine();
 
@@ -43,7 +43,7 @@ public class UserController {
             System.out.println("Welcome " + currentUser.getName().toUpperCase() + "\n\n");
             if (Objects.equals(currentUser.getRole(), Role.ADMIN)) {
                 //  adminMenu();
-            } else userMenu();
+            } else mainMenu();
         } catch (AuthenticationException e) {
             System.out.println(e.getMessage());
         }

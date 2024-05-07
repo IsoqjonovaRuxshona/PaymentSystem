@@ -21,9 +21,5 @@ public class Transfer extends BaseModel{
     private UUID receiverId;
     private UUID giverId;
     private Double amount;
-    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
-    @JsonSerialize(using = LocalDateTimeSerializer.class)
-    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
-    protected LocalDateTime createdDate;
 
 }

@@ -1,38 +1,30 @@
 package org.example.repository;
 
 
+import org.example.exception.DataNotFoundException;
 import org.example.model.Card;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
-public class CardRepository extends BaseRepository<Card> {
+public class CardRepository extends BaseRepository<Card>{
 
-    public CardRepository() {
-        super.path = "src/main/resources/cards.json";
-        type = Card.class;
-    }
-
-    private static CardRepository cardRepository;
-
+    private static CardRepository cardRepository =new CardRepository();
 
     public static CardRepository getInstance() {
-        if (Objects.isNull(cardRepository)) {
-            cardRepository = new CardRepository();
-        }
         return cardRepository;
     }
+    public CardRepository() {
+       super.path = "src/main/resources/cards.json";
+        super.type = Card.class;
+    }
 
-    public Optional<Card> findByNumber(String number) {
-        ArrayList<Card> data = super.getAll();
-        for (Card card : data) {
-            if(Objects.equals(card.getCardNumber(), number)) {
-                return Optional.of(card);
-            }
-        }
-        return Optional.empty();
+    public Optional<Card> findByNumber(String cardNumber) {
+        ArrayList<Card> cards = getAll();
+        return cards.stream().filter(card -> Objects.equals(card.getCardNumber(), cardNumber)).findAny();
     }
 
     public ArrayList<Card> getAllActivesByOwnerId(UUID ownerId) {

@@ -69,7 +69,11 @@ public abstract class BaseRepository<T extends BaseModel> {
     }
     public void writeToFile(ArrayList<T> data) {
         try {
-            objectMapper.writeValue(new File(path), data);
+            File file = new File(path);
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            objectMapper.writeValue(file, data);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -79,12 +83,11 @@ public abstract class BaseRepository<T extends BaseModel> {
         try {
             TypeFactory t = TypeFactory.defaultInstance();
             File file = new File(path);
+
+//            if(!(file.length()>0)) {
+//                objectMapper.writeValue(new File(path),"[]");
+//            }
             return objectMapper.readValue(file, t.constructCollectionType(ArrayList.class, type));
-            /*if(file.length() > 0) {
-                return objectMapper.readValue(file, t.constructCollectionType(ArrayList.class, type));
-            } else {
-                return new ArrayList<>();
-            }*/
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

@@ -1,21 +1,23 @@
 package org.example.service;
 
+import org.example.controller.Main;
 import org.example.exception.AuthenticationException;
 import org.example.exception.DataNotFoundException;
 import org.example.model.User;
+import org.example.repository.UserRepository;
 import org.example.repository.UserRepository;
 
 import java.util.Objects;
 import java.util.Optional;
 
-import static org.example.controller.Main.transferService;
+
 import static org.example.controller.Main.userService;
 
 public class UserService extends BaseService<User,UserRepository> {
 
-
-    public UserService(UserRepository userRepository) {
-        super(userRepository);
+    private static final UserService userService = new UserService();
+    private UserService() {
+        super(UserRepository.getInstance());
     }
     public static UserService getInstance(){
         return userService;
