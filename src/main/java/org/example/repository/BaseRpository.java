@@ -11,7 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public abstract class BaseRpository<T extends BaseModel,R extends BaseService> {
+public abstract class BaseRpository<T extends BaseModel> {
     protected String path;
     private final ObjectMapper objectMapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
 
