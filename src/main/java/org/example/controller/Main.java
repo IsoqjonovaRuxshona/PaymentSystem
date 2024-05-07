@@ -1,12 +1,9 @@
 package org.example.controller;
 
-import org.example.model.Card;
 import org.example.model.User;
 import org.example.repository.CardRepository;
+import org.example.repository.UserRepository;
 import org.example.service.CardService;
-
-import org.example.service.CardService;
-import org.example.service.TransferService;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -14,12 +11,14 @@ import java.util.UUID;
 
 import static org.example.controller.TrasferController.p2p;
 
+
 public class Main {
     public static Scanner scanInt = new Scanner(System.in);
     public static Scanner scanStr = new Scanner(System.in);
-    public static TransferService transferService = new TransferService();
     public static CardService cardService = new CardService();
 
+    public static UserService userService = new UserService(UserRepository.getInstance());
+    public static TransferService transferService = TransferService.getInstance();
     public static User currentUser = null;
 
     static {
@@ -43,9 +42,9 @@ public class Main {
             try {
                 int command = scanInt.nextInt();
                 switch (command) {
-                   // case 1 -> signIn();
-                   // case 2 -> signUp();
-                    default -> System.out.println("No command");
+                    case 1 -> signIn();
+                    case 2 -> signUp();
+                    default -> System.out.println("Wrong input ❌");
                 }
             } catch (InputMismatchException e) {
                 scanInt = new Scanner(System.in);
@@ -77,4 +76,5 @@ public class Main {
     }
 
 
+}
 }
