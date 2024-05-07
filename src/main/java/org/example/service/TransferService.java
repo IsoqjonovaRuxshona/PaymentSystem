@@ -1,23 +1,24 @@
 package org.example.service;
 
-import org.example.model.Card;
-import org.example.model.Transaction;
+import org.example.model.Transfer;
 import org.example.repository.TransferRepository;
 
-public class TransferService extends BaseService<Transaction, TransferRepository> {
+import java.util.UUID;
+
+public class TransferService extends BaseService<Transfer, TransferRepository> {
 
     public TransferService() {
         super(new TransferRepository());
     }
 
-   /* public int transferP2P(Card receiver, Card sender, Double amount) {
-        if (sender.getBalance() < amount) {
-            return -1;
-        }
-        sender.setBalance(sender.getBalance() - amount + amount*0.01);
-        receiver.setBalance(receiver.getBalance() + amount);
-        return 1;
-    }*/
+    @Override
+    public boolean check(Transfer transaction) {
+        return false;
+    }
+
+    public Transfer getCardTransactions(UUID cardId) {
+        return repository.findByCardId(cardId);
+    }
 
 
 }

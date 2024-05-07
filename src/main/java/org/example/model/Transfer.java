@@ -17,7 +17,7 @@ import java.util.UUID;
 @Builder
 @ToString
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Transaction extends BaseModel{
+public class Transfer extends BaseModel{
     private UUID receiverId;
     private UUID giverId;
     private Double amount;

@@ -8,4 +8,9 @@ public class UserService extends BaseService<User,UserRepository> {
     public UserService() {
         super(new UserRepository());
     }
+
+    @Override
+    public boolean check(User user) {
+        return false;
+    }
 }

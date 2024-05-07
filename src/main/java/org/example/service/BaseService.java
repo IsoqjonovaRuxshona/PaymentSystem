@@ -8,11 +8,6 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.function.Supplier;
 
-public abstract class BaseService<T extends BaseModel, R extends BaseRpository> {
-    protected R repository;
-    public BaseService(R repository) {
-        this.repository = repository;
-    }
 public abstract class BaseService<T extends BaseModel, R extends BaseRepository<T>> {
 
     protected final R repository;
