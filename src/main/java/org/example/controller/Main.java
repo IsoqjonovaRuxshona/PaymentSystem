@@ -1,4 +1,8 @@
-package org.example;
+package org.example.controller;
+
+import org.example.model.User;
+import org.example.repository.CardRepository;
+import org.example.service.CardService;
 
 import org.example.service.CardService;
 import org.example.service.TransferService;
@@ -13,6 +17,11 @@ public class Main {
     public static Scanner scanStr = new Scanner(System.in);
     public static TransferService transferService = new TransferService();
     public static CardService cardService = new CardService();
+    public static CardService cardService = new CardService(CardRepository.getInstance());
+
+
+
+    public static User currentUser = null;
     public static void main(String[] args) {
      welcomeMenu();
     }
