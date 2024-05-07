@@ -6,4 +6,7 @@ import org.example.repository.UserRepository;
 
 public class UserService extends BaseService<User,UserRepository> {
 
+    public UserService() {
+        super(new UserRepository());
+    }
 }

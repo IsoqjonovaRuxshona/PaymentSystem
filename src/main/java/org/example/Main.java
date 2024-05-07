@@ -1,11 +1,18 @@
 package org.example;
 
+import org.example.service.CardService;
+import org.example.service.TransferService;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
+
+import static org.example.controller.TrasferController.p2p;
 
 public class Main {
     public static Scanner scanInt = new Scanner(System.in);
     public static Scanner scanStr = new Scanner(System.in);
+    public static TransferService transferService = new TransferService();
+    public static CardService cardService = new CardService();
     public static void main(String[] args) {
      welcomeMenu();
     }
@@ -29,4 +36,28 @@ public class Main {
             }
         }
     }
+
+    public static void mainMenu(){
+        System.out.println("""
+                1.CRUD
+                2.P2P
+                3.History
+                """);
+        try {
+            int command = scanInt.nextInt();
+            switch (command) {
+             //   case 1 -> crudMenu();
+                case 2 -> p2p();
+             //   case 3 -> history();
+                case 0 -> {return;}
+                default -> System.out.println("No command");
+            }
+        } catch (InputMismatchException e) {
+            scanInt = new Scanner(System.in);
+            System.out.println("Error Entered?");
+        }
+
+    }
+
+
 }
