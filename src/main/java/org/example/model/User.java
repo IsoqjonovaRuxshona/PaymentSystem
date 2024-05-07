@@ -23,9 +23,6 @@ public class User extends BaseModel{
     private String username;
     private String password;
     private Role role;
-    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
-    @JsonSerialize(using = LocalDateTimeSerializer.class)
-    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     protected LocalDateTime createdDate;
 
 }

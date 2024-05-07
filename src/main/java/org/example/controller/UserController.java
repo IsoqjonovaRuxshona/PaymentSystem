@@ -38,15 +38,15 @@ public class UserController {
         String password = scanStr.nextLine();
 
         try {
-            Optional<User> user = userService.signIn(username,password);
+            Optional<User> user = userService.signIn(username, password);
             user.ifPresent(value -> currentUser = value);
             System.out.println("Welcome " + currentUser.getName().toUpperCase() + "\n\n");
-            if(Objects.equals(currentUser.getRole(), Role.ADMIN)) {
-                adminMenu();
+            if (Objects.equals(currentUser.getRole(), Role.ADMIN)) {
+                //  adminMenu();
             } else userMenu();
         } catch (AuthenticationException e) {
             System.out.println(e.getMessage());
         }
-        }
     }
 }
+

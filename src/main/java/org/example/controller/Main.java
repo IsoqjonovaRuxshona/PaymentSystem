@@ -14,16 +14,16 @@ import static org.example.controller.UserController.signUp;
 public class Main {
     public static Scanner scanInt = new Scanner(System.in);
     public static Scanner scanStr = new Scanner(System.in);
-    public static UserService userService = new UserService();
-    public static CardService cardService = new CardService();
-    public static TransferService transferService = new TransferService();
+    public static UserService userService = UserService.getInstance();
+    public static CardService cardService = CardService.getInstance();
+    public static TransferService transferService = TransferService.getInstance();
     public static User currentUser = null;
     public static void main(String[] args) {
      welcomeMenu();
     }
 
     private static void welcomeMenu() {
-        while (true){
+        while (true) {
             System.out.println("""
                     1. Sign In
                     2. Sign Up
@@ -42,5 +42,9 @@ public class Main {
         }
     }
 
+
+    public static void userMenu() {
+
+    }
 
 }
