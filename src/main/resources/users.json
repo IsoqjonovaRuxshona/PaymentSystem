@@ -1,1 +1,33 @@
-[]
+[ {
+  "id" : "e8cac2f1-cd91-45a2-8b21-50abe76c744b",
+  "createdDate" : "07/05/2024 16:22:06",
+  "name" : "2",
+  "username" : "2",
+  "password" : "2",
+  "role" : "USER",
+  "active" : true
+}, {
+  "id" : "3bad5860-819a-4356-abb1-3fcbd0864fbe",
+  "createdDate" : "07/05/2024 17:01:46",
+  "name" : "h",
+  "username" : "h",
+  "password" : "h",
+  "role" : "USER",
+  "active" : true
+}, {
+  "id" : "72763dab-f289-4ce1-a3e1-b2e87b5d3f69",
+  "createdDate" : "07/05/2024 17:05:03",
+  "name" : "r",
+  "username" : "r",
+  "password" : "r",
+  "role" : "USER",
+  "active" : true
+}, {
+  "id" : "6120a815-58c8-4518-aae7-b5cc8ecc60c7",
+  "createdDate" : "07/05/2024 17:23:24",
+  "name" : "b",
+  "username" : "b",
+  "password" : "b",
+  "role" : "USER",
+  "active" : true
+} ]

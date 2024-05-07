@@ -1,6 +1,7 @@
 package org.example.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -15,15 +16,15 @@ import java.util.UUID;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-@ToString
-@JsonInclude(JsonInclude.Include.NON_NULL)
+
 public class Card extends BaseModel{
     private String cardNumber;
     private Double balance;
     private UUID ownerId;
 
-    public String getSomeFields() {
+
+
+    public String toString() {
         return
                 "number (" + cardNumber + ")  " +
                         "balance -> " + balance + "\n";

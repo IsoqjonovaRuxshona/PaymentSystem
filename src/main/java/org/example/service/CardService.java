@@ -8,20 +8,24 @@ import java.util.Optional;
 import java.util.UUID;
 
 import static org.example.controller.Main.cardService;
-import static org.example.controller.Main.transferService;
+;
 
 public class CardService extends BaseService<Card, CardRepository> {
-    public CardService() {
-        super(new CardRepository());
-    }
-    public static CardService getInstance(){
+
+   public  static final CardService cardService=new CardService();
+
+    public static CardService getInstance() {
         return cardService;
+    }
+
+    public CardService() {
+        super(CardRepository.getInstance());
     }
 
     @Override
     public boolean check(Card card) {
-        Card  byNumber = repository.findByNumber(card.getCardNumber());
-        return byNumber.isActive();
+        Optional<Card> byNumber = repository.findByNumber(card.getCardNumber());
+        return byNumber.isPresent();
     }
 
      public int transferP2P(Card receiver, Card sender, Double amount) {
@@ -32,7 +36,7 @@ public class CardService extends BaseService<Card, CardRepository> {
         receiver.setBalance(receiver.getBalance() + amount);
         return 1;
     }
-    public Card getCardByNumber(String number) {
+    public Optional<Card> getCardByNumber(String number) {
         return repository.findByNumber(number);
     }
 

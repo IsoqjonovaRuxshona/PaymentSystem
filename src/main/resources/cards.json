@@ -1,1 +1,15 @@
-[]
+[ {
+  "id" : "b5255b07-9498-45e3-9309-5bfd29f2a8d0",
+  "createdDate" : "07/05/2024 17:51:47",
+  "cardNumber" : "111",
+  "balance" : 111.0,
+  "ownerId" : "72763dab-f289-4ce1-a3e1-b2e87b5d3f69",
+  "active" : true
+}, {
+  "id" : "d83979d4-ecc4-4679-afe3-9333b4bbe2c2",
+  "createdDate" : "07/05/2024 17:51:53",
+  "cardNumber" : "222",
+  "balance" : 222.0,
+  "ownerId" : "72763dab-f289-4ce1-a3e1-b2e87b5d3f69",
+  "active" : true
+} ]

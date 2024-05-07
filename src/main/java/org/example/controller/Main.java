@@ -1,36 +1,40 @@
 package org.example.controller;
 
+import org.example.model.Card;
 import org.example.model.User;
-import org.example.repository.CardRepository;
-import org.example.repository.UserRepository;
+import org.example.repository.TransferRepository;
 import org.example.service.CardService;
+import org.example.service.TransferService;
+import org.example.service.UserService;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.UUID;
 
-import static org.example.controller.TrasferController.p2p;
+import static org.example.controller.CardController.cardMenu;
+import static org.example.controller.TransferController.p2p;
+import static org.example.controller.UserController.signIn;
+import static org.example.controller.UserController.signUp;
 
 
 public class Main {
     public static Scanner scanInt = new Scanner(System.in);
     public static Scanner scanStr = new Scanner(System.in);
-    public static CardService cardService = new CardService();
-
-    public static UserService userService = new UserService(UserRepository.getInstance());
+    public static UserService userService = UserService.getInstance();
     public static TransferService transferService = TransferService.getInstance();
-    public static User currentUser = null;
+    public static CardService cardService = CardService.getInstance();
+    public static User currentUser;
 
     static {
-        cardService.add(new Card("45678", 770000D, UUID.randomUUID()));
-        cardService.add(new Card("8887776", 312000D, UUID.randomUUID()));
+//        cardService.add(new Card("45678", 770000D, UUID.randomUUID()));
+//        cardService.add(new Card("8887776", 312000D, UUID.randomUUID()));
 
 
     }
     public static void main(String[] args) {
 
-    // welcomeMenu();
-        p2p();
+     welcomeMenu();
+     //   p2p();
     }
 
     private static void welcomeMenu() {
@@ -62,9 +66,9 @@ public class Main {
         try {
             int command = scanInt.nextInt();
             switch (command) {
-             //   case 1 -> crudMenu();
+                case 1 -> cardMenu();
                 case 2 -> p2p();
-             //   case 3 -> history();
+             // case 3 -> history();
                 case 0 -> {return;}
                 default -> System.out.println("No command");
             }
@@ -76,5 +80,4 @@ public class Main {
     }
 
 
-}
 }

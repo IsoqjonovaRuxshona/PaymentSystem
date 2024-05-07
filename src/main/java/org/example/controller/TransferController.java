@@ -3,29 +3,30 @@ package org.example.controller;
 import org.example.model.Card;
 import org.example.model.Transfer;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import static org.example.controller.CardController.readCard;
 import static org.example.controller.Main.*;
 
-public class TrasferController {
+public class TransferController {
     public static void p2p() {
-        System.out.print("Enter receiver number: ");
+        System.out.print("Enter receiver number -> ");
         String receiver = scanStr.nextLine();
 
-        Card receiverCard = cardService.getCardByNumber(receiver);
-        if (receiverCard == null) {
-            System.out.println("Card not found");
+        Card receiverCard;
+        if(cardService.getCardByNumber(receiver).isPresent()) {
+            receiverCard = cardService.getCardByNumber(receiver).get();
+        } else {
+            System.out.println("No such card 🦕");
             return;
         }
 
-        System.out.print("Enter amount: ");
+        System.out.print("Enter amount -> ");
         double amount = scanInt.nextDouble();
 
         ArrayList<Card> cards = readCard();
 
-        System.out.print("Choose card: ");
+        System.out.print("Choose card -> ");
         int choice = scanInt.nextInt() - 1;
 
 

@@ -22,7 +22,4 @@ public class Transfer extends BaseModel{
     private UUID giverId;
     private Double amount;
 
-
-    //
-
 }

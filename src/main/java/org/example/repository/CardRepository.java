@@ -4,32 +4,27 @@ package org.example.repository;
 import org.example.exception.DataNotFoundException;
 import org.example.model.Card;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
 public class CardRepository extends BaseRepository<Card>{
-    public Card findByNumber(String cardNumber) {
-        ArrayList<Card> cards = getAll();
-        Optional<Card> any = cards.stream().filter(card -> Objects.equals(card.getCardNumber(), cardNumber)).findAny();
-        if(any.isEmpty()) throw new DataNotFoundException("Data not found");
-        return any.get();
-        }
 
-    public CardRepository() {
-        super.path = "src/main/resources/cards.json";
-        type = Card.class;
-    }
-
-    private static CardRepository cardRepository;
-
+    private static CardRepository cardRepository =new CardRepository();
 
     public static CardRepository getInstance() {
-        if (Objects.isNull(cardRepository)) {
-            cardRepository = new CardRepository();
-        }
         return cardRepository;
+    }
+    public CardRepository() {
+       super.path = "src/main/resources/cards.json";
+        super.type = Card.class;
+    }
+
+    public Optional<Card> findByNumber(String cardNumber) {
+        ArrayList<Card> cards = getAll();
+        return cards.stream().filter(card -> Objects.equals(card.getCardNumber(), cardNumber)).findAny();
     }
 
     public ArrayList<Card> getAllActivesByOwnerId(UUID ownerId) {

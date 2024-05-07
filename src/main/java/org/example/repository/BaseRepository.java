@@ -14,7 +14,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 public abstract class BaseRepository<T extends BaseModel> {
-    protected static String path;
+    protected String path;
     protected Class<T> type;
     private final ObjectMapper objectMapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
 
@@ -83,11 +83,11 @@ public abstract class BaseRepository<T extends BaseModel> {
         try {
             TypeFactory t = TypeFactory.defaultInstance();
             File file = new File(path);
-            if(file.length() > 0) {
-                return objectMapper.readValue(file, t.constructCollectionType(ArrayList.class, type));
-            } else {
-                return new ArrayList<>();
-            }
+
+//            if(!(file.length()>0)) {
+//                objectMapper.writeValue(new File(path),"[]");
+//            }
+            return objectMapper.readValue(file, t.constructCollectionType(ArrayList.class, type));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

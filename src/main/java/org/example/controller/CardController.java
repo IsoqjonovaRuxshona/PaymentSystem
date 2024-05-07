@@ -34,7 +34,7 @@ public class CardController {
         }
         int i = 1;
         for (Card card : cards) {
-            System.out.println(i++ + ". " + card.getSomeFields());
+            System.out.println(i++ + ". " + card.toString());
         }
         return cards;
     }
@@ -47,7 +47,7 @@ public class CardController {
         }
         int i = 1;
         for (Card card : cards) {
-            System.out.println(i++ + ". " + card.getSomeFields());
+            System.out.println(i++ + ". " + card.toString());
         }
         System.out.print("Choose one for delete ->  ");
         Card chosenCard;
