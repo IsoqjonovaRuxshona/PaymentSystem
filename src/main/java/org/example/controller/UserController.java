@@ -23,7 +23,7 @@ public class UserController {
         System.out.println("Enter password -> ");
         String password = scanStr.nextLine();
 
-        if(userService.add(new User(name,username,password, Role.USER, LocalDateTime.now()))==1){
+        if(userService.add(new User(name,username,password, Role.USER))==1){
             System.out.println(" - User successfully added");
         }else{
             System.out.println(" - Wrong username or password!");

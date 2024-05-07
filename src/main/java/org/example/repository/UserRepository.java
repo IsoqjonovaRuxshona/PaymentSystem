@@ -8,9 +8,16 @@ import java.util.Objects;
 import java.util.Optional;
 
 public class UserRepository extends BaseRepository<User> {
-
-    public UserRepository() {
-            super.path = "C:\\java\\PayMe\\src\\main\\resources\\users.json";
+    {
+        path = "src/main/resources/users.json";
+        type = User.class;
+    }
+    private static UserRepository userRepository;
+    public static UserRepository getInstance() {
+        if (Objects.isNull(userRepository)) {
+            userRepository = new UserRepository();
+        }
+        return userRepository;
     }
 
     public Optional<User> findByUsername(String username)throws DataNotFoundException {

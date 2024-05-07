@@ -19,8 +19,12 @@ public abstract class BaseService<T extends BaseModel, R extends BaseRepository<
     public abstract boolean check(T t) throws DataNotFoundException;
 
     public int add(T t) {
-        if (check(t)) {
-            return -1;
+        try {
+            if (check(t)) {
+                return -1;
+            }
+        } catch (DataNotFoundException e) {
+            throw new RuntimeException(e);
         }
         repository.save(t);
         return 1;

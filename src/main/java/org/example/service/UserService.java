@@ -14,8 +14,8 @@ import static org.example.controller.Main.userService;
 public class UserService extends BaseService<User,UserRepository> {
 
 
-    protected UserService() {
-        super(new UserRepository());
+    public UserService(UserRepository userRepository) {
+        super(userRepository);
     }
     public static UserService getInstance(){
         return userService;
