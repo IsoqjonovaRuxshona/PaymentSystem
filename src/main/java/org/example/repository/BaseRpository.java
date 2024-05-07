@@ -3,12 +3,15 @@ package org.example.repository;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import org.example.model.BaseModel;
+import org.example.model.User;
+import org.example.service.BaseService;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public abstract class BaseRpository<T> {
+public abstract class BaseRpository<T extends BaseModel,R extends BaseService> {
     protected String path;
     private final ObjectMapper objectMapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
 
