@@ -14,7 +14,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 public abstract class BaseRepository<T extends BaseModel> {
-    protected String path;
+    protected static String path;
     protected Class<T> type;
     private final ObjectMapper objectMapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
 
@@ -69,7 +69,11 @@ public abstract class BaseRepository<T extends BaseModel> {
     }
     public void writeToFile(ArrayList<T> data) {
         try {
-            objectMapper.writeValue(new File(path), data);
+            File file = new File(path);
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            objectMapper.writeValue(file, data);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -79,12 +83,11 @@ public abstract class BaseRepository<T extends BaseModel> {
         try {
             TypeFactory t = TypeFactory.defaultInstance();
             File file = new File(path);
-            return objectMapper.readValue(file, t.constructCollectionType(ArrayList.class, type));
-            /*if(file.length() > 0) {
+            if(file.length() > 0) {
                 return objectMapper.readValue(file, t.constructCollectionType(ArrayList.class, type));
             } else {
                 return new ArrayList<>();
-            }*/
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

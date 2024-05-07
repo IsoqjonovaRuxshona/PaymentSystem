@@ -26,16 +26,17 @@ public class CardController {
         }
     }
 
-    private static void readCard() {
+   public static ArrayList<Card> readCard() {
         ArrayList<Card> cards = cardService.getAllActiveCardsByOwnerId(currentUser.getId());
         if(cards.isEmpty()) {
             System.out.println("No cards 🦕");
-            return;
+            return cards;
         }
         int i = 1;
         for (Card card : cards) {
             System.out.println(i++ + ". " + card.getSomeFields());
         }
+        return cards;
     }
 
     private static void deleteCard() {

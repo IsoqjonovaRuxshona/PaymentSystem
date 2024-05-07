@@ -7,12 +7,13 @@ import org.example.model.Card;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.UUID;
 
 public class CardRepository extends BaseRepository<Card>{
     public Card findByNumber(String cardNumber) {
-        ArrayList<Card> cards = new ArrayList<>();
+        ArrayList<Card> cards = getAll();
         Optional<Card> any = cards.stream().filter(card -> Objects.equals(card.getCardNumber(), cardNumber)).findAny();
-        if(any.isEmpty()) throw  new DataNotFoundException("Data not found");
+        if(any.isEmpty()) throw new DataNotFoundException("Data not found");
         return any.get();
         }
 
@@ -29,16 +30,6 @@ public class CardRepository extends BaseRepository<Card>{
             cardRepository = new CardRepository();
         }
         return cardRepository;
-    }
-
-    public Optional<Card> findByNumber(String number) {
-        ArrayList<Card> data = super.getAll();
-        for (Card card : data) {
-            if(Objects.equals(card.getCardNumber(), number)) {
-                return Optional.of(card);
-            }
-        }
-        return Optional.empty();
     }
 
     public ArrayList<Card> getAllActivesByOwnerId(UUID ownerId) {

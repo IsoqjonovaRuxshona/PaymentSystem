@@ -1,10 +1,13 @@
 package org.example.controller;
 
 import org.example.model.Card;
+import org.example.model.Transfer;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-import static org.example.Main.*;
+import static org.example.controller.CardController.readCard;
+import static org.example.controller.Main.*;
 
 public class TrasferController {
     public static void p2p() {
@@ -20,17 +23,17 @@ public class TrasferController {
         System.out.print("Enter amount: ");
         double amount = scanInt.nextDouble();
 
-       // Card[] cards = showUserCards();
+        ArrayList<Card> cards = readCard();
+
         System.out.print("Choose card: ");
         int choice = scanInt.nextInt() - 1;
 
 
-
-  /*      if (cardService.transferP2P(receiverCard, cards[choice], amount) == 1) {
-            transactionService.add(new Transaction(cards[choice].getId(), receiverCard.getId(), amount));
+        if (cardService.transferP2P(receiverCard, cards.get(choice), amount) == 1) {
+             transferService.add(new Transfer(receiverCard.getId(),cards.get(choice).getId(), amount));
             System.out.println("success");
         } else {
             System.out.println("Not enough funds");
-        }*/
+        }
     }
 }
