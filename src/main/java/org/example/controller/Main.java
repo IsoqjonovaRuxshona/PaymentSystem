@@ -1,11 +1,23 @@
-package org.example;
+package org.example.controller;
+
+import org.example.model.User;
+import org.example.service.CardService;
+import org.example.service.TransferService;
+import org.example.service.UserService;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import static org.example.controller.UserController.signIn;
+import static org.example.controller.UserController.signUp;
+
 public class Main {
     public static Scanner scanInt = new Scanner(System.in);
     public static Scanner scanStr = new Scanner(System.in);
+    public static UserService userService = new UserService();
+    public static CardService cardService = new CardService();
+    public static TransferService transferService = new TransferService();
+    public static User currentUser = null;
     public static void main(String[] args) {
      welcomeMenu();
     }
@@ -19,9 +31,9 @@ public class Main {
             try {
                 int command = scanInt.nextInt();
                 switch (command) {
-                   // case 1 -> signIn();
-                   // case 2 -> signUp();
-                    default -> System.out.println("No command");
+                    case 1 -> signIn();
+                    case 2 -> signUp();
+                    default -> System.out.println("Wrong input ❌");
                 }
             } catch (InputMismatchException e) {
                 scanInt = new Scanner(System.in);
@@ -29,4 +41,6 @@ public class Main {
             }
         }
     }
+
+
 }

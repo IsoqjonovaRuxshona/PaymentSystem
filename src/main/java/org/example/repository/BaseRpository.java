@@ -4,8 +4,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.example.model.BaseModel;
-import org.example.model.User;
-import org.example.service.BaseService;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,9 +13,9 @@ public abstract class BaseRpository<T extends BaseModel> {
     protected String path;
     private final ObjectMapper objectMapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
 
-    public void write(T  t){
+    public void write(ArrayList<T> t){
         ArrayList<T> ts = readAll();
-        ts.add(t);
+        ts.add();
         try {
             objectMapper.writeValue(new File(path),ts);
         } catch (IOException e) {
@@ -31,5 +29,11 @@ public abstract class BaseRpository<T extends BaseModel> {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+    public  int save(T t){
+        ArrayList<T> data = readAll();
+        data.add(t);
+        write(data);
+        return 1;
     }
 }
