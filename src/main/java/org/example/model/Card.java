@@ -23,8 +23,9 @@ public class Card extends BaseModel{
     private Double balance;
     private UUID ownerId;
 
-    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
-    @JsonSerialize(using = LocalDateTimeSerializer.class)
-    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
-    protected LocalDateTime createdDate;
+    public String getSomeFields() {
+        return
+                "number (" + cardNumber + ")  " +
+                        "balance -> " + balance + "\n";
+    }
 }
