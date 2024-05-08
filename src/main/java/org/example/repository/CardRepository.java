@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class CardRepository extends BaseRepository<Card>{
 
@@ -29,13 +30,9 @@ public class CardRepository extends BaseRepository<Card>{
 
     public ArrayList<Card> getAllActivesByOwnerId(UUID ownerId) {
         ArrayList<Card> data = super.getAll();
-        ArrayList<Card> result = new ArrayList<>();
-        for (Card card : data) {
-            if(Objects.equals(card.getOwnerId(), ownerId) && card.isActive()) {
-                result.add(card);
-            }
-        }
-        return result;
+        return data.stream()
+                .filter(card -> Objects.equals(card.getOwnerId(), ownerId) && card.isActive())
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
 }

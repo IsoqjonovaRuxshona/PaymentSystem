@@ -17,7 +17,7 @@ public class CardController {
             switch (command) {
                 case "1" -> addCard();
                 case "2" -> deleteCard();
-                case "3" -> readCard();
+                case "3" -> readCard( cardService.getAllActiveCardsByOwnerId(currentUser.getId()));
                 default -> System.out.println("No command found ❌");
                 case "0" -> {
                     return;
@@ -26,17 +26,12 @@ public class CardController {
         }
     }
 
-   public static ArrayList<Card> readCard() {
-        ArrayList<Card> cards = cardService.getAllActiveCardsByOwnerId(currentUser.getId());
-        if(cards.isEmpty()) {
-            System.out.println("No cards 🦕");
-            return cards;
-        }
-        int i = 1;
-        for (Card card : cards) {
+   public static ArrayList<Card> readCard( ArrayList<Card> cardsList) {
+       int i = 1;
+        for (Card card : cardsList) {
             System.out.println(i++ + ". " + card.toString());
         }
-        return cards;
+        return cardsList;
     }
 
     private static void deleteCard() {

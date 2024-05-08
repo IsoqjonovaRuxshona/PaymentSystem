@@ -12,4 +12,11 @@
   "balance" : 222.0,
   "ownerId" : "72763dab-f289-4ce1-a3e1-b2e87b5d3f69",
   "active" : true
+}, {
+  "id" : "a91bbf42-cc23-4287-9f2b-da219a9ee251",
+  "createdDate" : "08/05/2024 09:20:20",
+  "cardNumber" : "998877",
+  "balance" : 1000000.0,
+  "ownerId" : "3bad5860-819a-4356-abb1-3fcbd0864fbe",
+  "active" : true
 } ]

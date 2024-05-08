@@ -1,5 +1,6 @@
 package org.example.controller;
 
+import org.example.enumerator.Role;
 import org.example.model.Card;
 import org.example.model.User;
 import org.example.repository.TransferRepository;
@@ -13,6 +14,7 @@ import java.util.UUID;
 
 import static org.example.controller.CardController.cardMenu;
 import static org.example.controller.TransferController.p2p;
+import static org.example.controller.TransferController.seeAllTransfers;
 import static org.example.controller.UserController.signIn;
 import static org.example.controller.UserController.signUp;
 
@@ -28,7 +30,7 @@ public class Main {
     static {
 //        cardService.add(new Card("45678", 770000D, UUID.randomUUID()));
 //        cardService.add(new Card("8887776", 312000D, UUID.randomUUID()));
-
+          userService.add(new User("admin", "admin", "55555", Role.ADMIN));
 
     }
     public static void main(String[] args) {
@@ -80,4 +82,17 @@ public class Main {
     }
 
 
+    public static void adminMenu() {
+        while (true) {
+            System.out.println("\n1) All transactions\t2) Change commission\t3) Top 5 users\t0 Exit");
+            String command = scanStr.nextLine();
+            switch (command) {
+                case "1" -> seeAllTransfers();
+                default -> System.out.println("No command found 🤷‍♀️");
+                case "0" -> {
+                    return;
+                }
+            }
+        }
+    }
 }

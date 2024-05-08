@@ -9,14 +9,18 @@ import org.example.model.BaseModel;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public abstract class BaseRepository<T extends BaseModel> {
     protected String path;
     protected Class<T> type;
-    private final ObjectMapper objectMapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
+    public final ObjectMapper objectMapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
 
     public int save(T t) {
         ArrayList<T> data = readFromFile();
@@ -49,31 +53,22 @@ public abstract class BaseRepository<T extends BaseModel> {
 
     public Optional<T> findById(UUID id) throws DataNotFoundException {
         ArrayList<T> data = readFromFile();
-        for (T datum : data) {
-            if (datum.getId().equals(id)) {
-                return Optional.of(datum);
-            }
-        }
-        return Optional.empty();
+        return data.stream().filter(datum -> datum.getId().equals(id)).findFirst();
     }
 
     public ArrayList<T> getAllByState(boolean state) {
         ArrayList<T> data = readFromFile();
-        ArrayList<T> newData = new ArrayList<>();
-        for (T datum : data) {
-            if(datum.isActive() == state) {
-                newData.add(datum);
-            }
-        }
-        return newData;
+        return data.stream()
+                .filter(datum -> datum.isActive() == state)
+                .collect(Collectors.toCollection(ArrayList::new));
     }
     public void writeToFile(ArrayList<T> data) {
         try {
-            File file = new File(path);
-            if (!file.exists()) {
-                file.createNewFile();
+           Path filePath = Paths.get(path);
+            if (!Files.exists(filePath)) {
+                Files.createFile(filePath);
             }
-            objectMapper.writeValue(file, data);
+            objectMapper.writeValue(filePath.toFile(), data);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

@@ -30,4 +30,12 @@
   "password" : "b",
   "role" : "USER",
   "active" : true
+}, {
+  "id" : "69542f46-cca1-4818-9562-ac856e62979c",
+  "createdDate" : "08/05/2024 09:04:33",
+  "name" : "admin",
+  "username" : "admin",
+  "password" : "55555",
+  "role" : "ADMIN",
+  "active" : true
 } ]
