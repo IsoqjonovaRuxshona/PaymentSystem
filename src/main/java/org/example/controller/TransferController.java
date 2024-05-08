@@ -45,7 +45,7 @@ public class TransferController {
 
         Double commission = commissionService.getByRoles(receiverCard.getCardRole(),cards.get(choice).getCardRole());
         if (cardService.transferP2P(receiverCard, cards.get(choice), amount,commission) == 1) {
-             transferService.add(new Transfer(receiverCard.getId(),cards.get(choice).getId(), amount));
+             transferService.add(new Transfer(receiverCard.getId(),cards.get(choice).getId(), amount,currentUser.getId()));
             System.out.println("success");
         } else {
             System.out.println("Not enough funds");

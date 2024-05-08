@@ -19,7 +19,7 @@ public class CommissionConteroller {
             int command = scanInt.nextInt();
             switch (command) {
                 case 1 -> addComission();
-                case 2 -> showCommission();
+              //  case 2 -> showCommission();
                 case 3 -> updateCommission();
                 case 0 -> adminMenu();
                 default -> System.out.println("No command");

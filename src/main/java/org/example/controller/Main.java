@@ -15,8 +15,7 @@ import java.util.UUID;
 
 import static org.example.controller.CardController.cardMenu;
 import static org.example.controller.CommissionConteroller.changeComission;
-import static org.example.controller.TransferController.p2p;
-import static org.example.controller.TransferController.seeAllTransfers;
+import static org.example.controller.TransferController.*;
 import static org.example.controller.UserController.signIn;
 import static org.example.controller.UserController.signUp;
 
