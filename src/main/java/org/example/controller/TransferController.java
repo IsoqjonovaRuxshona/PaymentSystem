@@ -77,6 +77,7 @@ public class TransferController {
         }
             outputTransfers(all);
     }
+
     public static void outputTransfers(ArrayList<Transfer> arrayList)  {
         int i = 1;
         for (Transfer transaction : arrayList) {
