@@ -39,4 +39,10 @@ public class TransferService extends BaseService<Transfer, TransferRepository> {
     public ArrayList<Transfer> getAllUsersTransfersByCard(UUID cardId){
         return repository.getAllUserTransfersByCard(cardId);
     }
+    public ArrayList<Transfer> getIncomeTransactionByCard(UUID cardId){
+        return repository.getIncomeTransferByCard(cardId);
+    }
+    public ArrayList<Transfer>getOutcomeTransferByCard(UUID cardId){
+        return repository.getOutcomeTransferByCard(cardId);
+    }
 }

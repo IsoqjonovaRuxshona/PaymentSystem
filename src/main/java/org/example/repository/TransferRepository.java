@@ -83,4 +83,13 @@ public class TransferRepository extends BaseRepository<Transfer>{
       return arrayList.stream().filter(transfer -> Objects.equals(transfer.getReceiverId(), cardId)
       || Objects.equals(transfer.getGiverId(), cardId)).collect(Collectors.toCollection(ArrayList::new));
     }
+    public ArrayList<Transfer> getOutcomeTransferByCard(UUID cardId){
+        ArrayList<Transfer> arrayList = getAll();
+        return arrayList.stream().filter(transfer -> Objects.equals(transfer.getGiverId(), cardId)).collect(Collectors.toCollection(ArrayList::new));
+    }
+    public ArrayList<Transfer> getIncomeTransferByCard(UUID cardId){
+        ArrayList<Transfer> arrayList = getAll();
+        return arrayList.stream().filter(transfer -> Objects.equals(transfer.getReceiverId(), cardId)).collect(Collectors.toCollection(ArrayList::new));
+    }
 }
+
