@@ -12,6 +12,7 @@ import java.util.Scanner;
 import java.util.UUID;
 
 import static org.example.controller.CardController.cardMenu;
+import static org.example.controller.CardController.history;
 import static org.example.controller.TransferController.p2p;
 import static org.example.controller.UserController.signIn;
 import static org.example.controller.UserController.signUp;
@@ -69,7 +70,7 @@ public class Main {
             switch (command) {
                 case 1 -> cardMenu();
                 case 2 -> p2p();
-             // case 3 -> history();
+                case 3 -> history();
                 case 0 -> {return;}
                 default -> System.out.println("No command");
             }

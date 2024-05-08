@@ -1,6 +1,7 @@
 package org.example.repository;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -13,13 +14,13 @@ import org.example.model.Transfer;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class TransferRepository extends BaseRepository<Transfer>{
@@ -60,5 +61,26 @@ public class TransferRepository extends BaseRepository<Transfer>{
         if (any.isEmpty()) throw new DataNotFoundException("Data not found");
         return any.get();
     }
-
+    public ArrayList<Transfer> getAll() {
+        ArrayList<Transfer> transactions = new ArrayList<>();
+        try {
+            Files.list(Paths.get("src/main/resources/history")).filter(Files::isRegularFile).forEach(file -> {
+                try {
+                    List<Transfer> transfersFromFile = objectMapper.readValue(file.toFile(), new TypeReference<List<Transfer>>() {
+                    });
+                    transactions.addAll(transfersFromFile);
+                } catch (IOException e) {
+                    System.out.println(e.getMessage());
+                }
+            });
+        } catch (IOException e) {
+            throw new RuntimeException("Error reading transactions for period", e);
+        }
+        return transactions;
+    }
+    public  ArrayList<Transfer> getAllUserTransfersByCard(UUID cardId){
+        ArrayList<Transfer> arrayList = getAll();
+      return arrayList.stream().filter(transfer -> Objects.equals(transfer.getReceiverId(), cardId)
+      || Objects.equals(transfer.getGiverId(), cardId)).collect(Collectors.toCollection(ArrayList::new));
+    }
 }

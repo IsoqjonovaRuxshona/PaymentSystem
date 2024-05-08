@@ -2,9 +2,11 @@ package org.example.controller;
 
 import org.example.model.Card;
 
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.*;
+import java.util.stream.Collectors;
+
 
 import static org.example.controller.Main.*;
 
@@ -26,7 +28,42 @@ public class CardController {
         }
     }
 
-   public static ArrayList<Card> readCard() {
+    public static void history(){
+        System.out.println("1) All\t2) Income\t3) Outcome\t0)Exit");
+        String  command = scanStr.nextLine();
+        switch (command){
+            case "1" -> allHistoryByCard();
+         //   case "2" -> IncomeHistoryByCard();
+         //   case "3" -> OutcomeHistoryByCard();
+         //   default -> System.out.println("No command found ❌");
+            case "0" -> {
+                return;
+            }
+        }
+    }
+
+    private static void allHistoryByCard() {
+        ArrayList<Card> cards = readCard();
+        System.out.println("Choose card: ");
+        Card choosenCard;
+        try {
+            int choice = scanInt.nextInt();
+            choosenCard = cards.get(choice - 1);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Wrong input");
+            return;
+        } catch (InputMismatchException e) {
+            System.out.println("Enter only number :");
+            scanInt = new Scanner(System.in);
+            return;
+        }
+
+
+    }
+
+
+
+    public static ArrayList<Card> readCard() {
         ArrayList<Card> cards = cardService.getAllActiveCardsByOwnerId(currentUser.getId());
         if(cards.isEmpty()) {
             System.out.println("No cards 🦕");
@@ -93,4 +130,6 @@ public class CardController {
             return inputDouble();
         }
     }
+
+
 }

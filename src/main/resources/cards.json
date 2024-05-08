@@ -40,4 +40,25 @@
   "balance" : 7890.0,
   "ownerId" : "eee43efc-ed38-4345-9fd0-fc053303b43a",
   "active" : true
+}, {
+  "id" : "4657dda8-c859-4a61-b924-0a5b21eeed58",
+  "createdDate" : "08/05/2024 09:23:49",
+  "cardNumber" : "112233",
+  "balance" : 100000.0,
+  "ownerId" : "3bad5860-819a-4356-abb1-3fcbd0864fbe",
+  "active" : true
+}, {
+  "id" : "1df8bc0c-463b-4176-a746-d9591ff4cf51",
+  "createdDate" : "08/05/2024 10:22:40",
+  "cardNumber" : "11",
+  "balance" : 233.0,
+  "ownerId" : "eee43efc-ed38-4345-9fd0-fc053303b43a",
+  "active" : true
+}, {
+  "id" : "8dec76cf-9139-4f35-a14a-6b0a15ff56c3",
+  "createdDate" : "08/05/2024 10:22:49",
+  "cardNumber" : "678",
+  "balance" : 10.0,
+  "ownerId" : "eee43efc-ed38-4345-9fd0-fc053303b43a",
+  "active" : true
 } ]

@@ -16,7 +16,7 @@ import java.util.UUID;
 public abstract class BaseRepository<T extends BaseModel> {
     protected String path;
     protected Class<T> type;
-    private final ObjectMapper objectMapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
+    public final ObjectMapper objectMapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
 
     public int save(T t) {
         ArrayList<T> data = readFromFile();
