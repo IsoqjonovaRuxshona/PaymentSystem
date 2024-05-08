@@ -28,21 +28,24 @@ public class CardService extends BaseService<Card, CardRepository> {
         return byNumber.isPresent();
     }
 
-     public int transferP2P(Card receiver, Card sender, Double amount) {
+     public int transferP2P( Card sender,Card receiver, Double amount,Double commission) {
         if (sender.getBalance() < amount) {
             return -1;
         }
-        sender.setBalance(sender.getBalance() - amount + amount * 0.01);
+        sender.setBalance(sender.getBalance() - amount + amount * commission);
         receiver.setBalance(receiver.getBalance() + amount);
+        repository.transferUpdate(sender,receiver);
         return 1;
     }
     public Optional<Card> getCardByNumber(String number) {
         return repository.findByNumber(number);
     }
 
+
     public ArrayList<Card> getAllActiveCardsByOwnerId(UUID ownerId) {
         return repository.getAllActivesByOwnerId(ownerId);
     }
+
 
 
 }

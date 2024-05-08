@@ -2,6 +2,7 @@ package org.example.controller;
 
 import org.example.model.Card;
 import org.example.model.Transfer;
+import org.example.service.CommissionService;
 
 import java.util.ArrayList;
 
@@ -30,7 +31,8 @@ public class TransferController {
         int choice = scanInt.nextInt() - 1;
 
 
-        if (cardService.transferP2P(receiverCard, cards.get(choice), amount) == 1) {
+        Double commission = commissionService.getByRoles(receiverCard.getCardRole(),cards.get(choice).getCardRole());
+        if (cardService.transferP2P(receiverCard, cards.get(choice), amount,commission) == 1) {
              transferService.add(new Transfer(receiverCard.getId(),cards.get(choice).getId(), amount));
             System.out.println("success");
         } else {

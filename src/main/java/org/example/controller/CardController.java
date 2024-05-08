@@ -1,5 +1,6 @@
 package org.example.controller;
 
+import org.example.enumerator.CardRole;
 import org.example.model.Card;
 
 import java.util.ArrayList;
@@ -63,13 +64,32 @@ public class CardController {
     }
 
     private static void addCard() {
+        System.out.println("""
+                1.HUMO
+                2.UZCARD
+                3.VISA
+                """);
+        String command = scanStr.nextLine();
+        CardRole role = null;
+        switch (command) {
+            case "1" -> {
+                role = CardRole.HUMO;
+            }
+            case "2" -> {
+                role = CardRole.UZCARD;
+            }
+            case "3" -> {
+                role = CardRole.VISA;
+            }
+            default -> System.out.println("Wrong input");
+        }
         System.out.print("Enter card number ->  ");
         String number = scanStr.nextLine();
 
         System.out.print("Enter balance: ");
         double balance = inputDouble();
 
-        if (cardService.add(new Card(number, balance, currentUser.getId())) == -1) {
+        if (cardService.add(new Card(number, balance, currentUser.getId(),role)) == -1) {
             System.out.println("\tCard already registered 🦕\n");
         } else System.out.println("\tCard successfully added ✅\n");
     }

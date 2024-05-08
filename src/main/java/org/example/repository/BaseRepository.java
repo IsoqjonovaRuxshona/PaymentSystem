@@ -6,14 +6,16 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import org.example.exception.DataNotFoundException;
 import org.example.model.BaseModel;
+import org.example.model.Commission;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public abstract class BaseRepository<T extends BaseModel> {
+public abstract class BaseRepository<T extends BaseModel>{
     protected String path;
     protected Class<T> type;
     private final ObjectMapper objectMapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
@@ -47,6 +49,9 @@ public abstract class BaseRepository<T extends BaseModel> {
         writeToFile(data);
     }
 
+
+
+
     public Optional<T> findById(UUID id) throws DataNotFoundException {
         ArrayList<T> data = readFromFile();
         for (T datum : data) {
@@ -67,7 +72,7 @@ public abstract class BaseRepository<T extends BaseModel> {
         }
         return newData;
     }
-    public void writeToFile(ArrayList<T> data) {
+    public void writeToFile(List<T> data) {
         try {
             File file = new File(path);
             if (!file.exists()) {
