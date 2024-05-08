@@ -7,6 +7,7 @@ import org.example.model.User;
 import org.example.repository.UserRepository;
 import org.example.repository.UserRepository;
 
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -41,5 +42,9 @@ public class UserService extends BaseService<User,UserRepository> {
         }catch (DataNotFoundException e){
             throw new AuthenticationException("Wrong username or password!");
         }
+    }
+
+    public ArrayList<User> getSimilarUserNamesForAdmin(String username) {
+        return repository.getSimilarUserNames(username);
     }
 }
