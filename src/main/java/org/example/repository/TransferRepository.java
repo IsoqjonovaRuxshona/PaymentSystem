@@ -14,10 +14,15 @@ import org.example.model.Transfer;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.nio.file.Paths;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+
+import java.util.stream.Collectors;
+
 import java.util.stream.Stream;
 
 public class TransferRepository extends BaseRepository<Transfer> {
@@ -77,6 +82,20 @@ public class TransferRepository extends BaseRepository<Transfer> {
         return transactions;
     }
 
+    public  ArrayList<Transfer> getAllUserTransfersByCard(UUID cardId){
+        ArrayList<Transfer> arrayList = getAll();
+      return arrayList.stream().filter(transfer -> Objects.equals(transfer.getReceiverId(), cardId)
+      || Objects.equals(transfer.getGiverId(), cardId)).collect(Collectors.toCollection(ArrayList::new));
+    }
+    public ArrayList<Transfer> getOutcomeTransferByCard(UUID cardId){
+        ArrayList<Transfer> arrayList = getAll();
+        return arrayList.stream().filter(transfer -> Objects.equals(transfer.getGiverId(), cardId)).collect(Collectors.toCollection(ArrayList::new));
+    }
+    public ArrayList<Transfer> getIncomeTransferByCard(UUID cardId){
+        ArrayList<Transfer> arrayList = getAll();
+        return arrayList.stream().filter(transfer -> Objects.equals(transfer.getReceiverId(), cardId)).collect(Collectors.toCollection(ArrayList::new));
+
+
     public ArrayList<Transfer> getByPeriod(LocalDate startDate, LocalDate endDate) {
         ArrayList<Transfer> transactions = new ArrayList<>();
         File directory = new File("src/main/resources/history");
@@ -101,5 +120,7 @@ public class TransferRepository extends BaseRepository<Transfer> {
     }
     private boolean isWithinPeriod(LocalDate transactionDate, LocalDate startDate, LocalDate endDate) {
         return !transactionDate.isBefore(startDate) && !transactionDate.isAfter(endDate);
+
     }
 }
+

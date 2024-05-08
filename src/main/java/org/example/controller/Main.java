@@ -13,6 +13,7 @@ import java.util.Scanner;
 import java.util.UUID;
 
 import static org.example.controller.CardController.cardMenu;
+import static org.example.controller.TransferController.history;
 import static org.example.controller.TransferController.p2p;
 import static org.example.controller.TransferController.seeAllTransfers;
 import static org.example.controller.UserController.signIn;
@@ -59,27 +60,32 @@ public class Main {
         }
     }
 
-    public static void mainMenu(){
-        System.out.println("""
-                1.CRUD
-                2.P2P
-                3.History
-                """);
-        try {
-            int command = scanInt.nextInt();
-            switch (command) {
-                case 1 -> cardMenu();
-                case 2 -> p2p();
-             // case 3 -> history();
-                case 0 -> {return;}
-                default -> System.out.println("No command");
+    public static void mainMenu() {
+        while (true) {
+            System.out.println("""
+                    1.CRUD
+                    2.P2P
+                    3.History
+                    0.Exit
+                    """);
+            try {
+                int command = scanInt.nextInt();
+                switch (command) {
+                    case 1 -> cardMenu();
+                    case 2 -> p2p();
+                    case 3 -> history();
+                    case 0 -> {
+                        return;
+                    }
+                    default -> System.out.println("No command");
+                }
+            } catch (InputMismatchException e) {
+                scanInt = new Scanner(System.in);
+                System.out.println("Error Entered?");
             }
-        } catch (InputMismatchException e) {
-            scanInt = new Scanner(System.in);
-            System.out.println("Error Entered?");
         }
-
     }
+
 
 
     public static void adminMenu() {
@@ -95,4 +101,5 @@ public class Main {
             }
         }
     }
+
 }
