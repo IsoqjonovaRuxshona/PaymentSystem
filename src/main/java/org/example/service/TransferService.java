@@ -12,7 +12,7 @@ import java.util.UUID;
 
 public class TransferService extends BaseService<Transfer, TransferRepository> {
 
-    public  static final TransferService  transferService=new TransferService();
+    public static final TransferService transferService = new TransferService();
 
     public static TransferService getInstance() {
         return transferService;
@@ -21,14 +21,6 @@ public class TransferService extends BaseService<Transfer, TransferRepository> {
     public TransferService() {
         super(TransferRepository.getInstance());
     }
-
-    /*public static final TransferService transferService=new TransferService();
-    private TransferService() {
-        super(TransferRepository.getInstance());
-    }
-    public static TransferService getInstance(){
-        return transferService;
-    }*/
 
     @Override
     public boolean check(Transfer transaction) {
@@ -40,20 +32,21 @@ public class TransferService extends BaseService<Transfer, TransferRepository> {
     }
 
 
-    public ArrayList<Transfer> getAllUsersTransfersByCard(UUID cardId){
+    public ArrayList<Transfer> getAllUsersTransfersByCard(UUID cardId) {
         return repository.getAllUserTransfersByCard(cardId);
     }
-    public ArrayList<Transfer> getIncomeTransactionByCard(UUID cardId){
+
+    public ArrayList<Transfer> getIncomeTransactionByCard(UUID cardId) {
         return repository.getIncomeTransferByCard(cardId);
     }
-    public ArrayList<Transfer>getOutcomeTransferByCard(UUID cardId){
+
+    public ArrayList<Transfer> getOutcomeTransferByCard(UUID cardId) {
         return repository.getOutcomeTransferByCard(cardId);
-
-    public ArrayList<Transfer> getAll() {
-        return repository.getAll();
     }
-    public ArrayList<Transfer> getAllByPeriod(LocalDate first, LocalDate second) {
-        return repository.getByPeriod(first, second);
-
+        public ArrayList<Transfer> getAll() {
+            return repository.getAll();
+        }
+        public ArrayList<Transfer> getAllByPeriod (LocalDate first, LocalDate second){
+            return repository.getByPeriod(first, second);
+        }
     }
-}

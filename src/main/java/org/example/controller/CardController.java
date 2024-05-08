@@ -31,17 +31,13 @@ public class CardController {
     }
 
 
-    public static ArrayList<Card> readCard() {
+    public static ArrayList<Card> readCard(ArrayList<Card> cardArrayList) {
         ArrayList<Card> cards = cardService.getAllActiveCardsByOwnerId(currentUser.getId());
-        if(cards.isEmpty()) {
-            System.out.println("No cards 🦕");
-            return cards;
-        }
         int i = 1;
         for (Card card : cards) {     
             System.out.println(i++ + ". " + card.toString());
         }
-        return cardsList;
+        return cards;
     }
 
     private static void deleteCard() {
@@ -50,10 +46,7 @@ public class CardController {
             System.out.println("No cards 🦕");
             return;
         }
-        int i = 1;
-        for (Card card : cards) {
-            System.out.println(i++ + ". " + card.toString());
-        }
+       readCard(cards);
         System.out.print("Choose one for delete ->  ");
         Card chosenCard;
         try {

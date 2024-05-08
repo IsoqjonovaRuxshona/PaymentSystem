@@ -36,14 +36,14 @@ public class TransferRepository extends BaseRepository<Transfer> {
 
     public TransferRepository() {
         String format = LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-        super.path="src/main/resources/history/"+format+".json";
+        super.path = "src/main/resources/history/" + format + ".json";
         type = Transfer.class;
     }
 
     @Override
     public int save(Transfer transfer) {
         String formatter = LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-        File file = new File("src/main/resources/history/"+formatter+".json");
+        File file = new File("src/main/resources/history/" + formatter + ".json");
         if (!file.exists()) {
             try {
                 file.createNewFile();
@@ -82,45 +82,48 @@ public class TransferRepository extends BaseRepository<Transfer> {
         return transactions;
     }
 
-    public  ArrayList<Transfer> getAllUserTransfersByCard(UUID cardId){
+    public ArrayList<Transfer> getAllUserTransfersByCard(UUID cardId) {
         ArrayList<Transfer> arrayList = getAll();
-      return arrayList.stream().filter(transfer -> Objects.equals(transfer.getReceiverId(), cardId)
-      || Objects.equals(transfer.getGiverId(), cardId)).collect(Collectors.toCollection(ArrayList::new));
+        return arrayList.stream().filter(transfer -> Objects.equals(transfer.getReceiverId(), cardId)
+                || Objects.equals(transfer.getGiverId(), cardId)).collect(Collectors.toCollection(ArrayList::new));
     }
-    public ArrayList<Transfer> getOutcomeTransferByCard(UUID cardId){
+
+    public ArrayList<Transfer> getOutcomeTransferByCard(UUID cardId) {
         ArrayList<Transfer> arrayList = getAll();
         return arrayList.stream().filter(transfer -> Objects.equals(transfer.getGiverId(), cardId)).collect(Collectors.toCollection(ArrayList::new));
     }
-    public ArrayList<Transfer> getIncomeTransferByCard(UUID cardId){
+
+    public ArrayList<Transfer> getIncomeTransferByCard(UUID cardId) {
         ArrayList<Transfer> arrayList = getAll();
         return arrayList.stream().filter(transfer -> Objects.equals(transfer.getReceiverId(), cardId)).collect(Collectors.toCollection(ArrayList::new));
+    }
 
-
-    public ArrayList<Transfer> getByPeriod(LocalDate startDate, LocalDate endDate) {
-        ArrayList<Transfer> transactions = new ArrayList<>();
-        File directory = new File("src/main/resources/history");
-        File[] files = directory.listFiles();
-        Arrays.stream(files).forEach((file) -> {
-            LocalDate transactionDate = extractDateFromFile(file);
-            if (isWithinPeriod(transactionDate, startDate, endDate)) {
-                try {
-                    transactions.addAll(objectMapper.readValue(file, new TypeReference<List<Transfer>>(){}));
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
+        public ArrayList<Transfer> getByPeriod (LocalDate startDate, LocalDate endDate){
+            ArrayList<Transfer> transactions = new ArrayList<>();
+            File directory = new File("src/main/resources/history");
+            File[] files = directory.listFiles();
+            Arrays.stream(files).forEach((file) -> {
+                LocalDate transactionDate = extractDateFromFile(file);
+                if (isWithinPeriod(transactionDate, startDate, endDate)) {
+                    try {
+                        transactions.addAll(objectMapper.readValue(file, new TypeReference<List<Transfer>>() {
+                        }));
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
-            }
-        });
-        return transactions;
-    }
-    private LocalDate extractDateFromFile(File file) {
-       // String fileName = file.getName();
-        String dateString = file.getName().substring(0, 10);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        return LocalDate.parse(dateString, formatter);
-    }
-    private boolean isWithinPeriod(LocalDate transactionDate, LocalDate startDate, LocalDate endDate) {
-        return !transactionDate.isBefore(startDate) && !transactionDate.isAfter(endDate);
+            });
+            return transactions;
+        }
 
+        private LocalDate extractDateFromFile(File file){
+            String dateString = file.getName().substring(0, 10);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            return LocalDate.parse(dateString, formatter);
+        }
+
+        private boolean isWithinPeriod(LocalDate transactionDate, LocalDate startDate, LocalDate endDate){
+            return !transactionDate.isBefore(startDate) && !transactionDate.isAfter(endDate);
+        }
     }
-}
 
