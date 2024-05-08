@@ -31,11 +31,20 @@
   "role" : "USER",
   "active" : true
 }, {
+
+  "id" : "eee43efc-ed38-4345-9fd0-fc053303b43a",
+  "createdDate" : "08/05/2024 07:30:31",
+  "name" : "p",
+  "username" : "p",
+  "password" : "p",
+  "role" : "USER",
+
   "id" : "69542f46-cca1-4818-9562-ac856e62979c",
   "createdDate" : "08/05/2024 09:04:33",
   "name" : "admin",
   "username" : "admin",
   "password" : "55555",
   "role" : "ADMIN",
+
   "active" : true
 } ]

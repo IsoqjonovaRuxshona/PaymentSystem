@@ -9,8 +9,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.zip.DataFormatException;
 
 import static org.example.controller.CardController.readCard;
 import static org.example.controller.Main.*;
@@ -50,6 +48,16 @@ public class TransferController {
         }
     }
 
+    public static void history() {
+        while (true) {
+            System.out.println("1) All\t2) Income\t3) Outcome\t0)Exit");
+            String command = scanStr.nextLine();
+            switch (command) {
+                case "1" -> allHistoryByCard();
+                case "2" -> IncomeHistoryByCard();
+                case "3" -> OutcomeHistoryByCard();
+                default -> System.out.println("No command found ❌");
+
     public static void seeAllTransfers() {
         while (true) {
             System.out.println("\n1) All\t2) In period\t 3) By user\t0) Exit");
@@ -66,8 +74,50 @@ public class TransferController {
         }
     }
 
-    private static void showTransfersByUser() {
+    private static void OutcomeHistoryByCard() {
+        ArrayList<Card> cards = readCard();
+        System.out.println("Choose card: ");
+        Card choosenCard;
+        try {
+            int choice = scanInt.nextInt();
+            choosenCard = cards.get(choice - 1);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Wrong input");
+            return;
+        } catch (InputMismatchException e) {
+            System.out.println("Enter only number :");
+            scanInt = new Scanner(System.in);
+            return;
+        }
+        ArrayList<Transfer> cardTransaction = transferService.getOutcomeTransferByCard(choosenCard.getId());
+        if(cardTransaction.isEmpty()){
+            System.out.println("No outcome transaction in this card 🦕");
+        }
+        outputTransfers(cardTransaction);
     }
+
+    private static void IncomeHistoryByCard() {
+        ArrayList<Card> cards = readCard();
+        System.out.println("Choose card: ");
+        Card choosenCard;
+        try {
+            int choice = scanInt.nextInt();
+            choosenCard = cards.get(choice - 1);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Wrong input");
+            return;
+        } catch (InputMismatchException e) {
+            System.out.println("Enter only number :");
+            scanInt = new Scanner(System.in);
+            return;
+        }
+        ArrayList<Transfer> cardTransaction = transferService.getIncomeTransactionByCard(choosenCard.getId());
+        if(cardTransaction.isEmpty()){
+            System.out.println("No income transactions in this card 🦕");
+        }
+        outputTransfers(cardTransaction);
+
+
 
     private static void showAllTransfers() {
         ArrayList<Transfer> all = transferService.getAll();
@@ -77,7 +127,6 @@ public class TransferController {
         }
             outputTransfers(all);
     }
-
     public static void outputTransfers(ArrayList<Transfer> arrayList)  {
         int i = 1;
         for (Transfer transaction : arrayList) {
@@ -86,6 +135,31 @@ public class TransferController {
                     "  (amount = " + transaction.getAmount() + ")\t\tto ➡️  [" + transaction.getReceiverId() + "]");
         }
     }
+
+
+    private static void allHistoryByCard() {
+        ArrayList<Card> cards = readCard();
+        System.out.println("Choose card: ");
+        Card choosenCard;
+        try {
+            int choice = scanInt.nextInt();
+            choosenCard = cards.get(choice - 1);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Wrong input");
+            return;
+        } catch (InputMismatchException e) {
+            System.out.println("Enter only number :");
+            scanInt = new Scanner(System.in);
+            return;
+        }
+        ArrayList<Transfer> cardTransactions = transferService.getAllUsersTransfersByCard(choosenCard.getId());
+        if(cardTransactions.isEmpty()){
+            System.out.println(" No transaction in this card 🦕");
+            return;
+        }
+        outputTransfers(cardTransactions);
+    }
+
 
     public static void showTransactionsInPeriod() {
         System.out.print("Enter first date (dd-MM-yyyy) ->  ");

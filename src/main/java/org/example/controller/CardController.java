@@ -1,12 +1,16 @@
 package org.example.controller;
 
 import org.example.model.Card;
+import org.example.model.Transfer;
 
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.*;
+import java.util.stream.Collectors;
+
 
 import static org.example.controller.Main.*;
+import static org.example.controller.TransferController.outputTransfers;
 
 public class CardController {
 
@@ -26,9 +30,15 @@ public class CardController {
         }
     }
 
-   public static ArrayList<Card> readCard( ArrayList<Card> cardsList) {
-       int i = 1;
-        for (Card card : cardsList) {
+
+    public static ArrayList<Card> readCard() {
+        ArrayList<Card> cards = cardService.getAllActiveCardsByOwnerId(currentUser.getId());
+        if(cards.isEmpty()) {
+            System.out.println("No cards 🦕");
+            return cards;
+        }
+        int i = 1;
+        for (Card card : cards) {     
             System.out.println(i++ + ". " + card.toString());
         }
         return cardsList;
@@ -88,4 +98,6 @@ public class CardController {
             return inputDouble();
         }
     }
+
+
 }

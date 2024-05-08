@@ -4,7 +4,9 @@ import org.example.model.Transfer;
 import org.example.repository.TransferRepository;
 import org.example.repository.TransferRepository;
 
+
 import java.time.LocalDate;
+
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -37,10 +39,21 @@ public class TransferService extends BaseService<Transfer, TransferRepository> {
         return repository.findByCardId(cardId);
     }
 
+
+    public ArrayList<Transfer> getAllUsersTransfersByCard(UUID cardId){
+        return repository.getAllUserTransfersByCard(cardId);
+    }
+    public ArrayList<Transfer> getIncomeTransactionByCard(UUID cardId){
+        return repository.getIncomeTransferByCard(cardId);
+    }
+    public ArrayList<Transfer>getOutcomeTransferByCard(UUID cardId){
+        return repository.getOutcomeTransferByCard(cardId);
+
     public ArrayList<Transfer> getAll() {
         return repository.getAll();
     }
     public ArrayList<Transfer> getAllByPeriod(LocalDate first, LocalDate second) {
         return repository.getByPeriod(first, second);
+
     }
 }

@@ -44,7 +44,7 @@ public class UserController {
             if (Objects.equals(currentUser.getRole(), Role.ADMIN)) {
                   Main.adminMenu();
             } else mainMenu();
-        } catch (AuthenticationException e) {
+        } catch (AuthenticationException e ) {
             System.out.println(e.getMessage());
         }
     }
