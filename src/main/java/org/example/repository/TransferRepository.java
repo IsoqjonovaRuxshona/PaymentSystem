@@ -30,14 +30,15 @@ public class TransferRepository extends BaseRepository<Transfer> {
 
 
     public TransferRepository() {
-        super.path = "src/main/resources/history/";
+        String format = LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        super.path="src/main/resources/history/"+format+".json";
         type = Transfer.class;
     }
 
     @Override
     public int save(Transfer transfer) {
         String formatter = LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-        File file = new File(path + formatter + ".json");
+        File file = new File("src/main/resources/history/"+formatter+".json");
         if (!file.exists()) {
             try {
                 file.createNewFile();
@@ -93,9 +94,10 @@ public class TransferRepository extends BaseRepository<Transfer> {
         return transactions;
     }
     private LocalDate extractDateFromFile(File file) {
-        String fileName = file.getName();
-        String dateString = fileName.substring(0, 10);
-        return LocalDate.parse(dateString);
+       // String fileName = file.getName();
+        String dateString = file.getName().substring(0, 10);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        return LocalDate.parse(dateString, formatter);
     }
     private boolean isWithinPeriod(LocalDate transactionDate, LocalDate startDate, LocalDate endDate) {
         return !transactionDate.isBefore(startDate) && !transactionDate.isAfter(endDate);

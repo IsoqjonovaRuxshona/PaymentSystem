@@ -6,9 +6,11 @@ import org.example.model.Transfer;
 import org.example.model.User;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.zip.DataFormatException;
 
 import static org.example.controller.CardController.readCard;
 import static org.example.controller.Main.*;
@@ -55,13 +57,16 @@ public class TransferController {
             switch (s) {
                 case "1" -> showAllTransfers();
                  case "2" -> showTransactionsInPeriod();
-                // case "3" -> showTransfersByUser();
+                 case "3" -> showTransfersByUser();
                 default -> System.out.println("No command found 🤷‍♀️");
                 case "0" -> {
                     return;
                 }
             }
         }
+    }
+
+    private static void showTransfersByUser() {
     }
 
     private static void showAllTransfers() {
@@ -99,11 +104,11 @@ public class TransferController {
     public static LocalDate inputForParseException() {
         try {
             String parse = scanStr.nextLine();
-            return LocalDate.parse(parse);
+            return LocalDate.parse(parse,DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         } catch (DateTimeParseException e) {
             System.out.println("Wrong format");
             scanStr = new Scanner(System.in);
-            System.out.print("Enter due date (dd-MM-yyyy) ->  ");
+            System.out.print("Enter again (dd-MM-yyyy) ->  ");
             return inputForParseException();
         }
     }
