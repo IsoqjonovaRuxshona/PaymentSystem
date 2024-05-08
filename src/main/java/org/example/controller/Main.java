@@ -62,6 +62,7 @@ public class Main {
                 1.CRUD
                 2.P2P
                 3.History
+                0.Exit
                 """);
         try {
             int command = scanInt.nextInt();
