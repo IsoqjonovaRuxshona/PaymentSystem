@@ -8,6 +8,7 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import lombok.*;
 
+
 import java.time.LocalDateTime;
 import java.util.UUID;
 @Setter
@@ -21,5 +22,5 @@ public class Transfer extends BaseModel{
     private UUID receiverId;
     private UUID giverId;
     private Double amount;
-
+    private UUID senderPersonId;
 }

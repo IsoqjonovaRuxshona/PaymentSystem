@@ -42,9 +42,9 @@ public class UserController {
             user.ifPresent(value -> currentUser = value);
             System.out.println("Welcome " + currentUser.getName().toUpperCase() + "\n\n");
             if (Objects.equals(currentUser.getRole(), Role.ADMIN)) {
-                //  adminMenu();
+                  Main.adminMenu();
             } else mainMenu();
-        } catch (AuthenticationException e) {
+        } catch (AuthenticationException e ) {
             System.out.println(e.getMessage());
         }
     }

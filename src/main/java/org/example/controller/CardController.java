@@ -2,12 +2,16 @@ package org.example.controller;
 
 import org.example.enumerator.CardRole;
 import org.example.model.Card;
+import org.example.model.Transfer;
 
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.*;
+import java.util.stream.Collectors;
+
 
 import static org.example.controller.Main.*;
+import static org.example.controller.TransferController.outputTransfers;
 
 public class CardController {
 
@@ -18,7 +22,7 @@ public class CardController {
             switch (command) {
                 case "1" -> addCard();
                 case "2" -> deleteCard();
-                case "3" -> readCard();
+                case "3" -> readCard( cardService.getAllActiveCardsByOwnerId(currentUser.getId()));
                 default -> System.out.println("No command found ❌");
                 case "0" -> {
                     return;
@@ -27,14 +31,11 @@ public class CardController {
         }
     }
 
-   public static ArrayList<Card> readCard() {
+
+    public static ArrayList<Card> readCard(ArrayList<Card> cardArrayList) {
         ArrayList<Card> cards = cardService.getAllActiveCardsByOwnerId(currentUser.getId());
-        if(cards.isEmpty()) {
-            System.out.println("No cards 🦕");
-            return cards;
-        }
         int i = 1;
-        for (Card card : cards) {
+        for (Card card : cards) {     
             System.out.println(i++ + ". " + card.toString());
         }
         return cards;
@@ -46,10 +47,7 @@ public class CardController {
             System.out.println("No cards 🦕");
             return;
         }
-        int i = 1;
-        for (Card card : cards) {
-            System.out.println(i++ + ". " + card.toString());
-        }
+       readCard(cards);
         System.out.print("Choose one for delete ->  ");
         Card chosenCard;
         try {
@@ -113,4 +111,6 @@ public class CardController {
             return inputDouble();
         }
     }
+
+
 }
