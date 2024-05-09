@@ -125,5 +125,11 @@ public class TransferRepository extends BaseRepository<Transfer> {
         private boolean isWithinPeriod(LocalDate transactionDate, LocalDate startDate, LocalDate endDate){
             return !transactionDate.isBefore(startDate) && !transactionDate.isAfter(endDate);
         }
+
+        public ArrayList<Transfer> getTransfersByOwnerId(UUID userId) {
+        ArrayList<Transfer> transferArrayList = getAll();
+        return transferArrayList.stream().filter(transfer -> Objects.equals(transfer.getSenderPersonId(), userId)).
+                collect(Collectors.toCollection(ArrayList::new));
+        }
     }
 
