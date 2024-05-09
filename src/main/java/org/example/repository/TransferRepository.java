@@ -16,8 +16,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
@@ -130,6 +132,15 @@ public class TransferRepository extends BaseRepository<Transfer> {
         ArrayList<Transfer> transferArrayList = getAll();
         return transferArrayList.stream().filter(transfer -> Objects.equals(transfer.getSenderPersonId(), userId)).
                 collect(Collectors.toCollection(ArrayList::new));
+        }
+
+        public ArrayList<Transfer> transfersInLastWeekByUser(UUID userId) {
+        ArrayList<Transfer> transfers = getAll();
+         LocalDateTime nowDate = LocalDateTime.now();
+         LocalDateTime lastWeek = nowDate.minusWeeks(1);
+        return transfers.stream().filter(transfer -> Objects.equals(transfer.getSenderPersonId(), userId)
+                && transfer.getCreatedDate().isBefore(nowDate)
+                && transfer.getCreatedDate().isAfter(lastWeek)).collect(Collectors.toCollection(ArrayList::new));
         }
     }
 

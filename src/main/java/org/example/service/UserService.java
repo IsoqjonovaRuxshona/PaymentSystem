@@ -7,9 +7,7 @@ import org.example.model.User;
 import org.example.repository.UserRepository;
 import org.example.repository.UserRepository;
 
-import java.util.ArrayList;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 
 import static org.example.controller.Main.userService;
@@ -50,5 +48,24 @@ public class UserService extends BaseService<User,UserRepository> {
 
     public ArrayList<User> getAllUsers() {
         return repository.getAll();
+    }
+
+    public List<String> topFiveUsers(HashMap<String, Double> userScores) {
+        Collection<Double> scores = userScores.values();
+        List<Double> sortedScores = new ArrayList<>(scores);
+        Collections.sort(sortedScores, Collections.reverseOrder());
+        List<String> topUsers = new ArrayList<>();
+        int count = 0;
+        for (Double score : sortedScores) {
+            if (count >= 5) break;
+            for (String user : userScores.keySet()) {
+                if (userScores.get(user).equals(score)) {
+                    topUsers.add(user);
+                    count++;
+                    break;
+                }
+            }
+        }
+        return topUsers;
     }
 }

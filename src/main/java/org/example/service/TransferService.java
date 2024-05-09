@@ -52,4 +52,8 @@ public class TransferService extends BaseService<Transfer, TransferRepository> {
         public ArrayList<Transfer> getTransfersByUserId(UUID userId) {
         return repository.getTransfersByOwnerId(userId);
         }
+
+        public ArrayList<Transfer> transfersInLastWeekByUserId(UUID userId) {
+        return repository.transfersInLastWeekByUser(userId);
+        }
     }

@@ -228,9 +228,13 @@ public class TransferController {
         public static void outputTransfers (ArrayList < Transfer > arrayList) {
             int i = 1;
             for (Transfer transaction : arrayList) {
-                User user1 = userService.findById(transaction.getSenderPersonId());
-                System.out.println(i++ + ". Sender <" + user1.getUsername() + ">" +
-                        "  (amount = " + transaction.getAmount() + ")\t\tto ➡️  [" + transaction.getReceiverId() + "]");
+                try {
+                    User user1 = userService.findById(transaction.getSenderPersonId());
+                    System.out.println(i++ + ". Sender <" + user1.getUsername() + ">" +
+                            "  (amount = " + transaction.getAmount() + ")\t\tto ➡️  [" + transaction.getReceiverId() + "]");
+                }catch (DataNotFoundException e){
+                    System.out.println(e.getMessage());
+                }
             }
         }
 
