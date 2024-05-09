@@ -65,19 +65,17 @@ public class UserController {
     public static void topFiveUsersInLastWeek() {
         HashMap<String, Double> commissionsInLastWeek = new HashMap<>();
         ArrayList<User> allUsers = userService.getAllUsers();
-        for (User user : allUsers) {
+        allUsers.stream().forEach(user -> {
             ArrayList<Transfer> transfers = transferService.transfersInLastWeekByUserId(user.getId());
-            if(transfers.isEmpty()) {
+            if (transfers.isEmpty()) {
                 System.out.println("No transfers 🦕");
                 return;
             }
-            double amount = 0;
-            for (Transfer transfer : transfers) {
-                amount+=transfer.getCommissionAmount();
-            }
-          commissionsInLastWeek.put(user.getUsername(), amount);
-        }
+            double amount = transfers.stream().mapToDouble(Transfer::getCommissionAmount).sum();
+            commissionsInLastWeek.put(user.getUsername(), amount);
+        });
         List<String> topUsers = userService.topFiveUsers(commissionsInLastWeek);
+
         if(topUsers.isEmpty()) {
             System.out.println("No top 5 users 🦕");
             return;
