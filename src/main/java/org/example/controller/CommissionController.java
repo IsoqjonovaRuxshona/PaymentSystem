@@ -37,6 +37,7 @@ public class CommissionController {
                 2.UZCARD
                 3.VISA
                 """);
+        System.out.println("Select the sender's card role -> ");
         String command = scanStr.nextLine();
         CardRole serderCardRole = null;
         switch (command) {
@@ -50,6 +51,7 @@ public class CommissionController {
                 2.UZCARD
                 3.VISA
                 """);
+        System.out.println("Select the recipient's card role ->  ");
         String command1 = scanStr.nextLine();
         CardRole reseiverCardRole = null;
         switch (command1) {

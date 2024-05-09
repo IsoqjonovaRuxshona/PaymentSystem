@@ -24,9 +24,7 @@ public class CardController {
                 case "2" -> deleteCard();
                 case "3" -> readCard( cardService.getAllActiveCardsByOwnerId(currentUser.getId()));
                 default -> System.out.println("No command found ❌");
-                case "0" -> {
-                    return;
-                }
+                case "0" -> {mainMenu();}
             }
         }
     }

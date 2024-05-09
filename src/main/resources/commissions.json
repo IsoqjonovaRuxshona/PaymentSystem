@@ -12,4 +12,11 @@
   "reseiverCardRole" : "VISA",
   "commission" : 2.2,
   "active" : true
+}, {
+  "id" : "5830118d-e012-4a7c-aa18-93af9af14725",
+  "createdDate" : "09/05/2024 15:24:08",
+  "senderCardRole" : "HUMO",
+  "reseiverCardRole" : "UZCARD",
+  "commission" : 0.001,
+  "active" : true
 } ]

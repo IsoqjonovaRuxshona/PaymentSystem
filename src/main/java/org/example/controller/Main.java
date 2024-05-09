@@ -72,9 +72,7 @@ public class Main {
                     case 1 -> cardMenu();
                     case 2 -> p2p();
                     case 3 -> history();
-                    case 0 -> {
-                        return;
-                    }
+                    case 0 -> {return;}
                     default -> System.out.println("No command");
                 }
             } catch (InputMismatchException e) {
