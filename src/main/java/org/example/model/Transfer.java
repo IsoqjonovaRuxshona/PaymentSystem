@@ -9,6 +9,7 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import lombok.*;
 
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.UUID;
 @Setter
