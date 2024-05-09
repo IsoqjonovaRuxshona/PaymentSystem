@@ -1,17 +1,17 @@
 [ {
-  "id" : "613cba4d-48ea-44c3-9097-a01ff4a24166",
-  "createdDate" : "09/05/2024 12:30:43",
-  "cardNumber" : "111",
-  "balance" : 110.0,
-  "ownerId" : "72763dab-f289-4ce1-a3e1-b2e87b5d3f69",
-  "cardRole" : "HUMO",
-  "active" : true
-}, {
   "id" : "a3f1a655-2179-4545-b15f-c0b5383f9837",
   "createdDate" : "09/05/2024 12:30:55",
   "cardNumber" : "222",
-  "balance" : 223.0,
+  "balance" : 290.0,
   "ownerId" : "72763dab-f289-4ce1-a3e1-b2e87b5d3f69",
   "cardRole" : "UZCARD",
+  "active" : true
+}, {
+  "id" : "613cba4d-48ea-44c3-9097-a01ff4a24166",
+  "createdDate" : "09/05/2024 12:30:43",
+  "cardNumber" : "111",
+  "balance" : 98.06700000000001,
+  "ownerId" : "72763dab-f289-4ce1-a3e1-b2e87b5d3f69",
+  "cardRole" : "HUMO",
   "active" : true
 } ]

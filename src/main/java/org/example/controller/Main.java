@@ -85,18 +85,18 @@ public class Main {
 
     public static void adminMenu(){
         System.out.println("""
-                1.See all transfer
-                2.. Change comission
-                3..  Top 5 users with Outcoming tranfer               
+                1. See all transfer
+                2. Change commission
+                3. Top 5 users with Out coming transfer               
                 """);
         try {
             int command = scanInt.nextInt();
             switch (command) {
                 case 1 -> seeAllTransfers();
                 case 2 -> changeCommission();
-            //   case 3 -> top5UsersWithOutcomingTransfer();
+               case 3 -> UserController.top5UsersWithOutcomingTransfer();
                 case 0 -> {return;}
-                default -> System.out.println("No command");
+                default -> System.out.println("No command found");
             }
         } catch (InputMismatchException e) {
             scanInt = new Scanner(System.in);

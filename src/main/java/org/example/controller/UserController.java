@@ -48,18 +48,44 @@ public class UserController {
         }
     }
 
-    public void topFiveUsersInLastWeek() {
-        HashMap<String, Double> commisionsInLastWeek = new HashMap<>();
+    public static void top5UsersWithOutcomingTransfer() {
+    while (true) {
+        System.out.println("1) In last week\t0) Exit");
+        String command = scanStr.nextLine();
+        switch (command) {
+            case "1" -> topFiveUsersInLastWeek();
+            default -> System.out.println("No command found 🤷‍♀️");
+            case "0" -> {
+                return;
+            }
+        }
+    }
+    }
+
+    public static void topFiveUsersInLastWeek() {
+        HashMap<String, Double> commissionsInLastWeek = new HashMap<>();
         ArrayList<User> allUsers = userService.getAllUsers();
         for (User user : allUsers) {
             ArrayList<Transfer> transfers = transferService.transfersInLastWeekByUserId(user.getId());
+            if(transfers.isEmpty()) {
+                System.out.println("No transfers 🦕");
+                return;
+            }
             double amount = 0;
             for (Transfer transfer : transfers) {
                 amount+=transfer.getCommissionAmount();
             }
-          commisionsInLastWeek.put(user.getUsername(), amount);
+          commissionsInLastWeek.put(user.getUsername(), amount);
         }
-        List<String> topUsers = userService.topFiveUsers(commisionsInLastWeek);
+        List<String> topUsers = userService.topFiveUsers(commissionsInLastWeek);
+        if(topUsers.isEmpty()) {
+            System.out.println("No top 5 users 🦕");
+            return;
+        }
+        int i = 1;
+        for (String topUser : topUsers) {
+            System.out.println(i++ + ". " + topUser);
+        }
     }
 }
 
