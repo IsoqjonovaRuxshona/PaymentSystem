@@ -1,5 +1,6 @@
 package org.example.controller;
 
+import org.example.enumerator.CardRole;
 import org.example.model.Card;
 import org.example.model.Transfer;
 
@@ -23,21 +24,18 @@ public class CardController {
                 case "2" -> deleteCard();
                 case "3" -> readCard( cardService.getAllActiveCardsByOwnerId(currentUser.getId()));
                 default -> System.out.println("No command found ❌");
-                case "0" -> {
-                    return;
-                }
+                case "0" -> {mainMenu();}
             }
         }
     }
 
 
     public static ArrayList<Card> readCard(ArrayList<Card> cardArrayList) {
-        ArrayList<Card> cards = cardService.getAllActiveCardsByOwnerId(currentUser.getId());
         int i = 1;
-        for (Card card : cards) {     
+        for (Card card : cardArrayList) {
             System.out.println(i++ + ". " + card.toString());
         }
-        return cards;
+        return cardArrayList;
     }
 
     private static void deleteCard() {
@@ -61,13 +59,32 @@ public class CardController {
     }
 
     private static void addCard() {
+        System.out.println("""
+                1.HUMO
+                2.UZCARD
+                3.VISA
+                """);
+        String command = scanStr.nextLine();
+        CardRole role = null;
+        switch (command) {
+            case "1" -> {
+                role = CardRole.HUMO;
+            }
+            case "2" -> {
+                role = CardRole.UZCARD;
+            }
+            case "3" -> {
+                role = CardRole.VISA;
+            }
+            default -> System.out.println("Wrong input");
+        }
         System.out.print("Enter card number ->  ");
         String number = scanStr.nextLine();
 
         System.out.print("Enter balance: ");
         double balance = inputDouble();
 
-        if (cardService.add(new Card(number, balance, currentUser.getId())) == -1) {
+        if (cardService.add(new Card(number, balance, currentUser.getId(),role)) == -1) {
             System.out.println("\tCard already registered 🦕\n");
         } else System.out.println("\tCard successfully added ✅\n");
     }

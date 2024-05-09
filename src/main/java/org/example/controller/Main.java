@@ -1,21 +1,18 @@
 package org.example.controller;
 
 import org.example.enumerator.Role;
-import org.example.model.Card;
 import org.example.model.User;
-import org.example.repository.TransferRepository;
 import org.example.service.CardService;
+import org.example.service.CommissionService;
 import org.example.service.TransferService;
 import org.example.service.UserService;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import java.util.UUID;
 
 import static org.example.controller.CardController.cardMenu;
-import static org.example.controller.TransferController.history;
-import static org.example.controller.TransferController.p2p;
-import static org.example.controller.TransferController.seeAllTransfers;
+import static org.example.controller.CommissionController.changeCommission;
+import static org.example.controller.TransferController.*;
 import static org.example.controller.UserController.signIn;
 import static org.example.controller.UserController.signUp;
 
@@ -26,6 +23,7 @@ public class Main {
     public static UserService userService = UserService.getInstance();
     public static TransferService transferService = TransferService.getInstance();
     public static CardService cardService = CardService.getInstance();
+    public static CommissionService commissionService = CommissionService.getInstance();
     public static User currentUser;
 
     static {
@@ -74,9 +72,7 @@ public class Main {
                     case 1 -> cardMenu();
                     case 2 -> p2p();
                     case 3 -> history();
-                    case 0 -> {
-                        return;
-                    }
+                    case 0 -> {return;}
                     default -> System.out.println("No command");
                 }
             } catch (InputMismatchException e) {
@@ -84,22 +80,29 @@ public class Main {
                 System.out.println("Error Entered?");
             }
         }
+
     }
 
-
-
-    public static void adminMenu() {
-        while (true) {
-            System.out.println("\n1) All transactions\t2) Change commission\t3) Top 5 users\t0 Exit");
-            String command = scanStr.nextLine();
+    public static void adminMenu(){
+        System.out.println("""
+                1.See all transfer
+                2.. Change comission
+                3..  Top 5 users with Outcoming tranfer               
+                """);
+        try {
+            int command = scanInt.nextInt();
             switch (command) {
-                case "1" -> seeAllTransfers();
-                default -> System.out.println("No command found 🤷‍♀️");
-                case "0" -> {
-                    return;
-                }
+                case 1 -> seeAllTransfers();
+                case 2 -> changeCommission();
+            //   case 3 -> top5UsersWithOutcomingTransfer();
+                case 0 -> {return;}
+                default -> System.out.println("No command");
             }
+        } catch (InputMismatchException e) {
+            scanInt = new Scanner(System.in);
+            System.out.println("Error Entered?");
         }
     }
+
 
 }

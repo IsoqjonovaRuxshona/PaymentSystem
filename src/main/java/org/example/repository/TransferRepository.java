@@ -8,7 +8,6 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import org.example.exception.DataNotFoundException;
-import org.example.model.Card;
 import org.example.model.Transfer;
 
 import java.io.File;
@@ -26,10 +25,14 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import java.util.stream.Stream;
+import java.util.ArrayList;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.UUID;
 
-public class TransferRepository extends BaseRepository<Transfer> {
+public class TransferRepository extends BaseRepository<Transfer>{
 
-    private static TransferRepository transferRepository = new TransferRepository();
+    private static final TransferRepository transferRepository = new TransferRepository();
 
     public static TransferRepository getInstance() {
         return transferRepository;
@@ -38,15 +41,15 @@ public class TransferRepository extends BaseRepository<Transfer> {
 
     public TransferRepository() {
         String format = LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-        super.path = "src/main/resources/history/" + format + ".json";
+        super.path="src/main/resources/history/"+format+".json";
         type = Transfer.class;
     }
 
     @Override
     public int save(Transfer transfer) {
         String formatter = LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-        File file = new File("src/main/resources/history/" + formatter + ".json");
-        if (!file.exists()) {
+        File file = new File("src/main/resources/history/"+formatter+".json");
+        if(!file.exists()){
             try {
                 file.createNewFile();
                 Files.write(file.toPath(), "[]".getBytes());
@@ -58,12 +61,13 @@ public class TransferRepository extends BaseRepository<Transfer> {
         return super.save(transfer);
     }
 
-    public Transfer findByCardId(UUID cardId) {
+    public ArrayList<Transfer> findByCardId(UUID cardId) {
         ArrayList<Transfer> transfers = new ArrayList<>();
         Optional<Transfer> any = transfers.stream().filter(transfer -> Objects.equals(transfer.getGiverId(), cardId)
                 || Objects.equals(transfer.getReceiverId(), cardId)).findAny();
         if (any.isEmpty()) throw new DataNotFoundException("Data not found");
-        return any.get();
+        any.get();
+        return transfers;
     }
 
     public ArrayList<Transfer> getAll() {

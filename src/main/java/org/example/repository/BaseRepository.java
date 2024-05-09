@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import org.example.exception.DataNotFoundException;
 import org.example.model.BaseModel;
+import org.example.model.Commission;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,11 +14,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-public abstract class BaseRepository<T extends BaseModel> {
+public abstract class BaseRepository<T extends BaseModel>{
     protected String path;
     protected Class<T> type;
     public final ObjectMapper objectMapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
@@ -51,6 +53,9 @@ public abstract class BaseRepository<T extends BaseModel> {
         writeToFile(data);
     }
 
+
+
+
     public Optional<T> findById(UUID id) throws DataNotFoundException {
         ArrayList<T> data = readFromFile();
         return data.stream().filter(datum -> datum.getId().equals(id)).findFirst();
@@ -62,7 +67,7 @@ public abstract class BaseRepository<T extends BaseModel> {
                 .filter(datum -> datum.isActive() == state)
                 .collect(Collectors.toCollection(ArrayList::new));
     }
-    public void writeToFile(ArrayList<T> data) {
+    public void writeToFile(List<T> data) {
         try {
            Path filePath = Paths.get(path);
             if (!Files.exists(filePath)) {

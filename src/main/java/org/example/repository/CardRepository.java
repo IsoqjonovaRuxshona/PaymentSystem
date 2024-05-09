@@ -1,19 +1,15 @@
 package org.example.repository;
 
 
-import org.example.exception.DataNotFoundException;
 import org.example.model.Card;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
-public class CardRepository extends BaseRepository<Card>{
 
-    private static CardRepository cardRepository =new CardRepository();
+public class CardRepository extends BaseRepository<Card>{
+    private static final CardRepository cardRepository = new CardRepository();
 
     public static CardRepository getInstance() {
         return cardRepository;
@@ -27,6 +23,21 @@ public class CardRepository extends BaseRepository<Card>{
         ArrayList<Card> cards = getAll();
         return cards.stream().filter(card -> Objects.equals(card.getCardNumber(), cardNumber)).findAny();
     }
+
+
+
+    public void transferUpdate(Card card1, Card card2) {
+        ArrayList<Card> cards = getAll();
+        List<Card> list = cards.stream().filter(card -> !Objects.equals(card.getId(), card1.getId())
+                        && !Objects.equals(card.getId(), card2.getId()))
+                .collect(Collectors.toList());
+        list.add(card1);
+        list.add(card2);
+        writeToFile(list);
+
+    }
+
+
 
     public ArrayList<Card> getAllActivesByOwnerId(UUID ownerId) {
         ArrayList<Card> data = super.getAll();

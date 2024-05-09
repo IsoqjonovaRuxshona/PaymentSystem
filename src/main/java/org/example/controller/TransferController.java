@@ -3,6 +3,7 @@ package org.example.controller;
 import org.example.exception.DataNotFoundException;
 import org.example.model.Card;
 import org.example.model.Transfer;
+import org.example.service.CommissionService;
 import org.example.model.User;
 
 import java.time.LocalDate;
@@ -10,6 +11,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.Objects;
 import java.util.Scanner;
 
 import static org.example.controller.CardController.readCard;
@@ -21,7 +23,7 @@ public class TransferController {
         String receiver = scanStr.nextLine();
 
         Card receiverCard;
-        if (cardService.getCardByNumber(receiver).isPresent()) {
+        if(cardService.getCardByNumber(receiver).isPresent()) {
             receiverCard = cardService.getCardByNumber(receiver).get();
         } else {
             System.out.println("No such card 🦕");
@@ -42,8 +44,16 @@ public class TransferController {
         int choice = scanInt.nextInt() - 1;
 
 
-        if (cardService.transferP2P(receiverCard, cards.get(choice), amount) == 1) {
-            transferService.add(new Transfer(receiverCard.getId(), cards.get(choice).getId(), amount, currentUser.getId()));
+        double commission = 0;
+        try {
+            commission = commissionService.getByRoles(receiverCard.getCardRole(),cards.get(choice).getCardRole());
+        }catch (NullPointerException e){
+            System.out.println(e.getMessage());
+        }
+
+        if (cardService.transferP2P(receiverCard, cards.get(choice), amount,commission) == 1) {
+             transferService.add(new Transfer(receiverCard.getId(),cards.get(choice).getId(), amount,currentUser.getId(),
+                     commission*amount/100));
             System.out.println("success");
         } else {
             System.out.println("Not enough funds");
@@ -58,6 +68,7 @@ public class TransferController {
                 case "1" -> allHistoryByCard();
                 case "2" -> IncomeHistoryByCard();
                 case "3" -> OutcomeHistoryByCard();
+                case "0" -> {mainMenu();}
                 default -> System.out.println("No command found ❌");
             }
         }
@@ -233,8 +244,9 @@ public class TransferController {
                     System.out.println(i++ + ". Sender <" + user1.getUsername() + ">" +
                             "  (amount = " + transaction.getAmount() + ")\t\tto ➡️  [" + transaction.getReceiverId() + "]");
                 }catch (DataNotFoundException e){
-                    System.out.println(e.getMessage());
+                    System.out.println("..........");
                 }
+
             }
         }
 

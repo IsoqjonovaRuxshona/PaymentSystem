@@ -4,6 +4,7 @@ import org.example.model.Transfer;
 import org.example.repository.TransferRepository;
 import org.example.repository.TransferRepository;
 
+import java.util.ArrayList;
 
 import java.time.LocalDate;
 
@@ -22,12 +23,20 @@ public class TransferService extends BaseService<Transfer, TransferRepository> {
         super(TransferRepository.getInstance());
     }
 
+    /*public static final TransferService transferService=new TransferService();
+    private TransferService() {
+        super(TransferRepository.getInstance());
+    }
+    public static TransferService getInstance(){
+        return transferService;
+    }*/
+
     @Override
     public boolean check(Transfer transaction) {
         return false;
     }
 
-    public Transfer getCardTransactions(UUID cardId) {
+    public ArrayList<Transfer> getCardTransactions(UUID cardId) {
         return repository.findByCardId(cardId);
     }
 
