@@ -33,12 +33,11 @@ public class CardController {
 
 
     public static ArrayList<Card> readCard(ArrayList<Card> cardArrayList) {
-        ArrayList<Card> cards = cardService.getAllActiveCardsByOwnerId(currentUser.getId());
         int i = 1;
-        for (Card card : cards) {     
+        for (Card card : cardArrayList) {
             System.out.println(i++ + ". " + card.toString());
         }
-        return cards;
+        return cardArrayList;
     }
 
     private static void deleteCard() {
