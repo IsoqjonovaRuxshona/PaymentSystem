@@ -47,4 +47,8 @@ public class UserService extends BaseService<User,UserRepository> {
     public ArrayList<User> getSimilarUserNamesForAdmin(String username) {
         return repository.getSimilarUserNames(username);
     }
+
+    public ArrayList<User> getAllUsers() {
+        return repository.getAll();
+    }
 }

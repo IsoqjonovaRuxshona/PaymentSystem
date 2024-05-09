@@ -58,4 +58,7 @@ public class TransferService extends BaseService<Transfer, TransferRepository> {
         public ArrayList<Transfer> getAllByPeriod (LocalDate first, LocalDate second){
             return repository.getByPeriod(first, second);
         }
+        public ArrayList<Transfer> getTransfersByUserId(UUID userId) {
+        return repository.getTransfersByOwnerId(userId);
+        }
     }

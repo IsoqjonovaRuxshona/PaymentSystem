@@ -54,7 +54,7 @@ public class TransferController {
 
     public static void history() {
         while (true) {
-            System.out.println("1) All\t2) Income\t3) Outcome\t0)Exit");
+            System.out.println("1)\n All\t2) Income\t3) Outcome\t0)Exit");
             String command = scanStr.nextLine();
             switch (command) {
                 case "1" -> allHistoryByCard();
@@ -82,11 +82,11 @@ public class TransferController {
 
     private static void showTransfersByUser() {
         while (true) {
-            System.out.println("1) Search\t2) Choose\t0) Exit");
+            System.out.println("1)\n Search\t2) Choose\t0) Exit");
             String s = scanStr.nextLine();
             switch (s) {
                 case "1" -> searchUserForShowHisTransfers();
-               //case "2" -> chooseUserForShowHisTransfers();
+                case "2" -> chooseUserForShowHisTransfers();
                 default -> System.out.println("No command found 🤷‍♀️");
                 case "0" -> {
                     return;
@@ -95,10 +95,72 @@ public class TransferController {
         }
     }
 
+    private static void chooseUserForShowHisTransfers() {
+    ArrayList<User> users = userService.getAllUsers();
+    if(users.isEmpty()) {
+        System.out.println("No users 🦕");
+        return;
+    }
+    int i = 1;
+        for (User user : users) {
+            System.out.println(i++ + ") " + user.getUsername());
+        }
+        System.out.println("\nChoose user ->  ");
+        User chosenUser;
+        try{
+            int c = input();
+            chosenUser = users.get(c - 1);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Wrong input ❌");
+            return;
+        }
+        ArrayList<Transfer> userTransfers = transferService.getTransfersByUserId(chosenUser.getId());
+        if(userTransfers.isEmpty()) {
+            System.out.println("No outcome transfers!\n\t(P.S. this method shows only outcome transactions) ↗");
+            return;
+        }
+        outputTransfers(userTransfers);
+        System.out.println("\n\t(P.S. this method shows only outcome transactions) ↗");
+    }
+
     private static void searchUserForShowHisTransfers() {
         System.out.print("Enter username ->  ");
         String username = scanStr.nextLine();
+        ArrayList<User> users = userService.getSimilarUserNamesForAdmin(username);
+        if(users.isEmpty()) {
+            System.out.println("No such users 🦕");
+            return;
+        }
+       int i = 1;
+        for (User user : users) {
+            System.out.println(i++ + ". " + user.getUsername());
+        }
+        System.out.print("Choose user ->  ");
+        User chosenUser;
+        try{
+            int c = input();
+            chosenUser = users.get(c - 1);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Wrong input ❌");
+            return;
+        }
+       ArrayList<Transfer> userTransfers = transferService.getTransfersByUserId(chosenUser.getId());
+        if(userTransfers.isEmpty()) {
+            System.out.println("No outcome transfers!\n\t(P.S. this method shows only outcome transactions) ↗");
+            return;
+        }
+        outputTransfers(userTransfers);
+        System.out.println("\n\t(P.S. this method shows only outcome transactions) ↗");
+    }
 
+    public static int input() {
+        try {
+            return scanInt.nextInt();
+        } catch (InputMismatchException e) {
+            System.out.println("Enter only number");
+            scanInt = new Scanner(System.in);
+            return input();
+        }
     }
 
     private static void OutcomeHistoryByCard () {
