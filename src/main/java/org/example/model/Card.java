@@ -17,7 +17,7 @@ import java.util.UUID;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-
+@ToString
 public class Card extends BaseModel{
     private String cardNumber;
     private Double balance;
@@ -26,9 +26,9 @@ public class Card extends BaseModel{
 
 
 
-    public String toString() {
+   /* public String toString() {
         return
                 "number (" + cardNumber + ")  " +
                         "balance -> " + balance + "\n";
-    }
+    }*/
 }

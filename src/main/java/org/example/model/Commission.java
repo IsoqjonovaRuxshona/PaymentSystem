@@ -13,5 +13,5 @@ public class Commission extends BaseModel{
 
     private CardRole senderCardRole;
     private CardRole reseiverCardRole;
-    private Double commission;
+    private double commission;
 }

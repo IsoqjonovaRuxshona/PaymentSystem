@@ -11,6 +11,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.Objects;
 import java.util.Scanner;
 
 import static org.example.controller.CardController.readCard;
@@ -43,9 +44,16 @@ public class TransferController {
         int choice = scanInt.nextInt() - 1;
 
 
-        Double commission = commissionService.getByRoles(receiverCard.getCardRole(),cards.get(choice).getCardRole());
+        double commission = 0;
+        try {
+            commission = commissionService.getByRoles(receiverCard.getCardRole(),cards.get(choice).getCardRole());
+        }catch (NullPointerException e){
+            System.out.println(e.getMessage());
+        }
+
         if (cardService.transferP2P(receiverCard, cards.get(choice), amount,commission) == 1) {
-             transferService.add(new Transfer(receiverCard.getId(),cards.get(choice).getId(), amount,currentUser.getId()));
+             transferService.add(new Transfer(receiverCard.getId(),cards.get(choice).getId(), amount,currentUser.getId(),
+                     commission*amount/100));
             System.out.println("success");
         } else {
             System.out.println("Not enough funds");

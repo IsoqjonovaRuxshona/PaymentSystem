@@ -30,7 +30,7 @@ import java.util.UUID;
 
 public class TransferRepository extends BaseRepository<Transfer>{
 
-    private static TransferRepository transferRepository =new TransferRepository();
+    private static final TransferRepository transferRepository =new TransferRepository();
 
     public static TransferRepository getInstance() {
         return transferRepository;

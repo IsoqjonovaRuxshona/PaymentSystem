@@ -5,14 +5,15 @@ import org.example.exception.DataNotFoundException;
 import org.example.model.Commission;
 import org.example.repository.CommissionRepository;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
-import static org.example.controller.Main.commissionService;
-
 public class CommissionService extends BaseService<Commission, CommissionRepository> {
-    protected CommissionService(CommissionRepository repository) {
+    private CommissionService(CommissionRepository repository) {
         super(repository);
     }
+
+    public static final CommissionService commissionService = new CommissionService(CommissionRepository.getInstance());
     public static CommissionService getInstance() {
         return commissionService;
     }
@@ -25,5 +26,8 @@ public class CommissionService extends BaseService<Commission, CommissionReposit
         return repository.getAll().stream().filter(commission ->
                 Objects.equals(commission.getSenderCardRole(),cardRole)
         && Objects.equals(commission.getReseiverCardRole(),cardRole1)).findAny().get().getCommission();
+    }
+    public ArrayList<Commission> getAll(){
+        return  repository.getAll();
     }
 }

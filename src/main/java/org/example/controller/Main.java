@@ -1,9 +1,7 @@
 package org.example.controller;
 
 import org.example.enumerator.Role;
-import org.example.model.Card;
 import org.example.model.User;
-import org.example.repository.TransferRepository;
 import org.example.service.CardService;
 import org.example.service.CommissionService;
 import org.example.service.TransferService;
@@ -11,10 +9,9 @@ import org.example.service.UserService;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import java.util.UUID;
 
 import static org.example.controller.CardController.cardMenu;
-import static org.example.controller.CommissionConteroller.changeComission;
+import static org.example.controller.CommissionController.changeCommission;
 import static org.example.controller.TransferController.*;
 import static org.example.controller.UserController.signIn;
 import static org.example.controller.UserController.signUp;
@@ -98,7 +95,7 @@ public class Main {
             int command = scanInt.nextInt();
             switch (command) {
                 case 1 -> seeAllTransfers();
-                case 2 -> changeComission();
+                case 2 -> changeCommission();
             //   case 3 -> top5UsersWithOutcomingTransfer();
                 case 0 -> {return;}
                 default -> System.out.println("No command");

@@ -18,9 +18,10 @@ import java.util.UUID;
 @Builder
 @ToString
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Transfer extends BaseModel{
+public class Transfer extends BaseModel {
     private UUID receiverId;
     private UUID giverId;
     private Double amount;
     private UUID senderPersonId;
+    private Double commissionAmount;
 }

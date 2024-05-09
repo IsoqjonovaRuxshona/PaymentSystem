@@ -29,7 +29,7 @@ public class CardService extends BaseService<Card, CardRepository> {
     }
 
      public int transferP2P( Card sender,Card receiver, Double amount,Double commission) {
-        if (sender.getBalance() < amount) {
+        if (sender.getBalance() < amount + amount*commission/100) {
             return -1;
         }
         sender.setBalance(sender.getBalance() - amount + amount * commission);

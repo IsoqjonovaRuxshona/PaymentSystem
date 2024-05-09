@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 
 public class CardRepository extends BaseRepository<Card>{
-    private static CardRepository cardRepository =new CardRepository();
+    private static final CardRepository cardRepository = new CardRepository();
 
     public static CardRepository getInstance() {
         return cardRepository;
@@ -28,8 +28,8 @@ public class CardRepository extends BaseRepository<Card>{
 
     public void transferUpdate(Card card1, Card card2) {
         ArrayList<Card> cards = getAll();
-        List<Card> list = cards.stream().filter(card -> !Objects.equals(card.getCardNumber(), card1)
-                        && !Objects.equals(card.getCardNumber(), card2))
+        List<Card> list = cards.stream().filter(card -> !Objects.equals(card.getId(), card1.getId())
+                        && !Objects.equals(card.getId(), card2.getId()))
                 .collect(Collectors.toList());
         list.add(card1);
         list.add(card2);

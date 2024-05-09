@@ -1,0 +1,15 @@
+[ {
+  "id" : "be23de08-c321-4040-82d5-c100844d4bfa",
+  "createdDate" : "09/05/2024 14:06:04",
+  "senderCardRole" : "UZCARD",
+  "reseiverCardRole" : "HUMO",
+  "commission" : 1.0,
+  "active" : true
+}, {
+  "id" : "ea3902c4-c7e1-4f16-91d8-478aafd26911",
+  "createdDate" : "09/05/2024 14:08:29",
+  "senderCardRole" : "HUMO",
+  "reseiverCardRole" : "VISA",
+  "commission" : 2.2,
+  "active" : true
+} ]
