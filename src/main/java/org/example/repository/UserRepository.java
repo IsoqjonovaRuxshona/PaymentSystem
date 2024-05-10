@@ -22,18 +22,7 @@ public class UserRepository extends BaseRepository<User> {
         super.type=User.class;
     }
 
-    /* {
-        path = "src/main/resources/users.json";
-        type = User.class;
-    }*/
 
-    /*private static UserRepository userRepository;
-    public static UserRepository getInstance() {
-        if (Objects.isNull(userRepository)) {
-            userRepository = new UserRepository();
-        }
-        return userRepository;
-    }*/
 
     public Optional<User> findByUsername(String username)throws DataNotFoundException {
         ArrayList<User> data = readFromFile();

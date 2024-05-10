@@ -28,7 +28,58 @@ public class CommissionService extends BaseService<Commission, CommissionReposit
                 Objects.equals(commission.getSenderCardRole(),cardRole)
         && Objects.equals(commission.getReseiverCardRole(),cardRole1)).findAny();
     }
-    public ArrayList<Commission> getAll(){
+    public ArrayList<Commission> getAll()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    {
         return  repository.getAll();
     }
 }
