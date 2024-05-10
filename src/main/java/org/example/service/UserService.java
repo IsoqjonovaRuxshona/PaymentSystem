@@ -8,6 +8,7 @@ import org.example.repository.UserRepository;
 import org.example.repository.UserRepository;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 import static org.example.controller.Main.userService;
@@ -51,21 +52,9 @@ public class UserService extends BaseService<User,UserRepository> {
     }
 
     public List<String> topFiveUsers(HashMap<String, Double> userScores) {
-        Collection<Double> scores = userScores.values();
-        List<Double> sortedScores = new ArrayList<>(scores);
-        Collections.sort(sortedScores, Collections.reverseOrder());
-        List<String> topUsers = new ArrayList<>();
-        int count = 0;
-        for (Double score : sortedScores) {
-            if (count >= 5) break;
-            for (String user : userScores.keySet()) {
-                if (userScores.get(user).equals(score)) {
-                    topUsers.add(user);
-                    count++;
-                    break;
-                }
-            }
-        }
-        return topUsers;
+        ArrayList<Map.Entry<String, Double>> sorting = new ArrayList<>(userScores.entrySet());
+        sorting.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
+
+        return sorting.stream().limit(5).map(Map.Entry::getKey).collect(Collectors.toList());
     }
 }

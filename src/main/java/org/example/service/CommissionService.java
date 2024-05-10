@@ -7,6 +7,7 @@ import org.example.repository.CommissionRepository;
 
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Optional;
 
 public class CommissionService extends BaseService<Commission, CommissionRepository> {
     private CommissionService(CommissionRepository repository) {
@@ -22,10 +23,10 @@ public class CommissionService extends BaseService<Commission, CommissionReposit
         return false;
     }
 
-    public Double getByRoles(CardRole cardRole, CardRole cardRole1) {
+    public Optional<Commission> getByRoles(CardRole cardRole, CardRole cardRole1) {
         return repository.getAll().stream().filter(commission ->
                 Objects.equals(commission.getSenderCardRole(),cardRole)
-        && Objects.equals(commission.getReseiverCardRole(),cardRole1)).findAny().get().getCommission();
+        && Objects.equals(commission.getReseiverCardRole(),cardRole1)).findAny();
     }
     public ArrayList<Commission> getAll(){
         return  repository.getAll();

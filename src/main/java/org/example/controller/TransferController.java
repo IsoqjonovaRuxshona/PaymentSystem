@@ -2,6 +2,7 @@ package org.example.controller;
 
 import org.example.exception.DataNotFoundException;
 import org.example.model.Card;
+import org.example.model.Commission;
 import org.example.model.Transfer;
 import org.example.service.CommissionService;
 import org.example.model.User;
@@ -9,10 +10,7 @@ import org.example.model.User;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.Objects;
-import java.util.Scanner;
+import java.util.*;
 
 import static org.example.controller.CardController.readCard;
 import static org.example.controller.Main.*;
@@ -46,7 +44,8 @@ public class TransferController {
 
         double commission = 0;
         try {
-            commission = commissionService.getByRoles(receiverCard.getCardRole(),cards.get(choice).getCardRole());
+            Optional<Commission> byRoles = commissionService.getByRoles(receiverCard.getCardRole(), cards.get(choice).getCardRole());
+            commission = byRoles.map(Commission::getCommission).orElse(0.0);
         }catch (NullPointerException e){
             System.out.println(e.getMessage());
         }
